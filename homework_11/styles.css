@@ -1,0 +1,30 @@
+ul {
+    list-style-type: none;
+}
+
+.material-icons.folder,
+.material-icons.folder.open {
+    color: rgb(237, 188, 11);
+}
+
+.material-icons.file {
+    color: grey;
+}
+
+.material-icons {
+    padding-right: 10px;
+}
+
+p.folder + ul,
+p.folder + p {
+    display: none;
+}
+
+p.folder.open + ul,
+p.folder.open + p {
+    display: block;
+}
+
+.italic {
+    font-style: italic;
+}
