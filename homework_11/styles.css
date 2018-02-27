@@ -12,7 +12,12 @@ ul {
 }
 
 .material-icons {
-    padding-right: 10px;
+    padding: 3px 10px;
+}
+
+p  {
+    display: flex;
+    align-items: center;
 }
 
 p.folder + ul,
@@ -23,6 +28,10 @@ p.folder + p {
 p.folder.open + ul,
 p.folder.open + p {
     display: block;
+}
+
+p:hover {
+    background-color: silver;
 }
 
 .italic {

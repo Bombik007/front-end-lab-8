@@ -12,12 +12,12 @@ const createEl = (title, folder) => {
         elementIcon = createIcon("material-icons"),
         clss = (folder) ? "folder" : "file";
 
-        elementIcon.innerHTML = (folder) ? "folder": "insert_drive_file";
-        name.className = clss;
-        elementIcon.classList.add(clss);
-        name.innerHTML = title;
-        name.insertAdjacentElement('afterbegin', elementIcon);
-        element.appendChild(name);
+    elementIcon.innerHTML = (folder) ? "folder": "insert_drive_file";
+    name.className = clss;
+    elementIcon.classList.add(clss);
+    name.innerHTML = title;
+    name.insertAdjacentElement('afterbegin', elementIcon);
+    element.appendChild(name);
 
     return element;
 };
@@ -47,7 +47,7 @@ const createFileSystem = str => {
 rootNode.appendChild(createFileSystem(structure));
 
 let folderArray = document.querySelectorAll("p.folder");
-folderArray.forEach(function(el) {
+folderArray.forEach(el => {
     el.addEventListener("click", function() {
         if (!el.classList.contains("open")) {
             el.classList.add("open");
