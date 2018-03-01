@@ -72,7 +72,7 @@ const createMenu = data => {
             span = document.createElement("span");
 
         icon.setAttribute("src", el.country_image);
-        span.textContent = `${el.level}`;
+        span.textContent = `${el.level} `;
         header2.textContent = `${el.model}`;
         header2.insertAdjacentElement('beforebegin', icon);
         header2.insertAdjacentElement('afterbegin', span);
@@ -98,3 +98,5 @@ const createMainPage = data => {
 
     return mainPage;
 }
+
+document.getElementById("root").appendChild(createMainPage(tanks));
