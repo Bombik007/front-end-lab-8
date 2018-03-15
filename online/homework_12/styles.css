@@ -1,0 +1,36 @@
+body {
+    background-color: rgb(28,28,30);
+}
+
+h1, span {
+    color: rgb(161, 158, 137);
+}
+
+h3 {
+    color: rgb(214, 209, 186);
+    text-transform: uppercase;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tank_list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.tank_item {
+    width: 250px;
+    padding-bottom: 10px;
+}
+
+.tank_item:hover {
+    background-color: rgb(44,44,44);
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}

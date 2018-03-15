@@ -1,0 +1,239 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+.container {
+    margin: 0 auto;
+    width: 98%;
+}
+
+.nav-row {
+    padding-top: 2%;
+    font-size: 14px;
+}
+
+.nav-row p {
+    letter-spacing: 2px;
+}
+
+nav a {
+    padding: 16px 15px;
+    text-decoration: none;
+    color: white;
+}
+
+nav a:hover {
+    color: lightgrey;
+}
+
+h1 {
+    font-size: 3rem;
+    letter-spacing: 10px;
+    font-weight: 400;
+    margin-top: 9%;
+}
+
+h1 span {
+    font-size: 5.5vw;
+}
+
+sup {
+    font-size: 16px;
+    letter-spacing: initial;
+}
+
+.main-button {
+    background: rgba(0,0,0,0.5);
+    width: 226px;
+    height: 56px;
+    border: 2px solid white;
+    color: white;
+    margin-top: 5%;
+}
+
+.main-button:hover {
+    background: rgba(0,0,0,0.75);
+}
+
+.centered {
+    text-align: center;
+}
+
+.background-main {
+    width: 100%;
+    height: 45.101vw;
+    background: url(../img/apples.jpg) no-repeat center center; 
+    background-size: 100%;
+    color: white;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.content {
+    padding: 6% 0;
+}
+
+.content p:last-child {
+    text-align: justify;
+    width: 50%;
+    font-size: 1.1rem;
+    line-height: initial;
+}
+
+.content p:first-child {
+    line-height: 1.4;
+    font-size: 1.4rem;
+    width: 45%;
+}
+
+.subscription {
+    background-color: white;
+    margin-top: 3%;
+}
+
+.subscription-main {
+    margin: 0 auto;
+    width: 85%;
+    padding: 4% 0;
+    font-size: 1.4rem;
+}
+
+.subscription-main p{
+    width: 40%;
+}
+
+.input-section {
+    width: 59%;
+    display: flex;
+    flex-direction: row;
+    max-height: 70px;
+}
+
+.input-section input {
+    width: 75%;
+}
+
+input {
+    background-color: #f3f3f3;
+    border: 1px solid #333638;
+    padding-left: 5%;
+}
+
+.column {
+    width: 23%;
+}
+
+.photo-content {
+    background-color: #F3F3F3;
+    padding: 5% 0 8%;
+}
+
+.photo-content img {
+    height: 100%;
+    max-width: 100%;
+}
+
+.photo-content p:first-child {
+    padding-bottom: 2vw;
+}
+
+.photo-content p {
+    font-size: 1.4rem;
+}
+
+.photo-content button {
+    width: 30%;
+}
+
+.btn-style {
+    background-color: #303336;
+    border: 1px solid #303336;
+    color: white;
+}
+
+.photo-content .flex-row:not(:last-child) {
+    color: white;
+    margin-bottom: 1%;
+}
+
+.flex-img1 {
+    width: 67%;
+    position: relative;
+}
+
+.flex-img2 {
+    width: 32%;
+    position: relative;
+}
+
+.photo-content img {
+    height: 100%;
+    width: 100%;
+}
+
+.photo-content a {
+    color: white;
+    z-index: 9999;
+    position: absolute;
+    background: rgba(0,0,0,0.5);
+    top: 5.5%;
+    right: 3%;
+    border: 2px solid white;
+    padding: 1% 1%;
+    text-decoration: none;
+    height: 40px;
+    width: 80px;
+}
+
+.photo-content p:not(:first-child) {
+    position: absolute;
+    bottom: 5%;
+    left: 4%;
+}
+
+.footer-columns {
+    padding-top: 4%;
+    padding-bottom: 4%;
+}
+
+.footer-columns p {
+    color: #9f9f9f;
+}
+
+.footer-columns span {
+    color: #E4E4E4;
+}
+
+.footer-input {
+    display: flex;
+    height: 3vw;
+}
+
+.footer-input input {
+    width: 55%;
+}
+
+.footer-input button {
+    width: 40%;
+}
+
+.footer-bottom {
+    border-top: 2px solid #e3e3e3;
+    color: #9E9E9E;
+    padding: 0.5% 0;
+}
+
+.footer-bottom a {
+    color: black;
+    text-decoration: none;
+    padding: 16px 15px;
+}
