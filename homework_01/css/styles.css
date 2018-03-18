@@ -1,0 +1,55 @@
+h1,
+h3 {
+  color: #2A74BF;
+}
+h1 {
+  border-bottom: 1px solid #2A74BF;
+}
+.active {
+  color: white;
+}
+.related-classes {
+  margin-bottom: 25px;
+}
+.related-classes h3 {
+  border-bottom: 1px solid #2A74BF;
+}
+.related-classes a:hover {
+  text-decoration: none;
+}
+.related-classes p {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: white;
+}
+.related-classes .red img {
+  border: 1px solid #D7514C;
+}
+.related-classes .red p {
+  background-color: #D7514C;
+}
+.related-classes .blue img {
+  border: 1px solid #2A74BF;
+}
+.related-classes .blue p {
+  background-color: #2A74BF;
+}
+.related-classes .yellow img {
+  border: 1px solid #D8C11D;
+}
+.related-classes .yellow p {
+  background-color: #D8C11D;
+}
+.related-classes .green img {
+  border: 1px solid #4D944B;
+}
+.related-classes .green p {
+  background-color: #4D944B;
+}
+main {
+  min-height: calc(30vh);
+}
+.footer-body {
+  height: 50px;
+  background-color: #666;
+}

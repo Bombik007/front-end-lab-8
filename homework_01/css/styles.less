@@ -1,1 +1,81 @@
 @import "variables";
+
+h1,
+h3 {
+    color: @blue;
+}
+
+h1 {
+    border-bottom: 1px solid @blue;
+}
+
+.active {
+    color: white;
+}
+
+.related-classes {
+    margin-bottom: 25px;
+
+    h3 {
+        border-bottom: 1px solid @blue;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    p {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        color: white;
+    }
+
+    .red {
+        img {
+            border: 1px solid @red;
+        }
+
+        p {
+            background-color: @red;
+        }
+    }
+    
+    .blue {
+        img {
+            border: 1px solid @blue;
+        }
+
+        p {
+            background-color: @blue;
+        }
+    }
+
+    .yellow {
+        img {
+            border: 1px solid @orange;
+        }
+        
+        p {
+            background-color: @orange;
+        }
+    }
+
+    .green {
+        img {
+            border: 1px solid @green;
+        }
+
+        p {
+            background-color: @green;
+        }
+    }
+}
+
+main {
+    min-height: calc(100vh - 70px);
+}
+
+.footer-body {
+    height: 50px;
+    background-color: @grey;
+}
