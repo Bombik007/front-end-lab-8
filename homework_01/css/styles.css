@@ -6,7 +6,8 @@ h1 {
   border-bottom: 1px solid #2A74BF;
 }
 .active {
-  color: white;
+  color: white !important;
+  background-color: #2A74BF;
 }
 .related-classes {
   margin-bottom: 25px;
