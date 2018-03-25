@@ -97,7 +97,7 @@ function Employee(obj) {
     }
 
     this.setSalary = function(amount) {
-        if ((isFinite(newSalary)) && (typeof amount === 'number')) {
+        if ((isFinite(amount)) && (typeof amount === 'number')) {
 
         }
         this._salary = amount;
