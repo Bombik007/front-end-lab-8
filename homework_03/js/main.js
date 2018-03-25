@@ -21,11 +21,11 @@ function Company(name, owner, maxCount) {
                 })
                 this._employeeList.splice(resultIndex, 1);
             }
+            this._employeeList.push(emp);
+            this._logs.push("addNewEmployee");
             if (emp.currentCompany != this) {
                 emp.hire(this);
             }
-            this._employeeList.push(emp);
-            this._logs.push("addNewEmployee");
 
         } else {
             console.log("Please try to add Employee instance");
@@ -104,12 +104,11 @@ function Employee(name, age, salary, primarySkill) {
 
     this.hire = function(comp) {
         if (comp instanceof Company) {
+            this.currentCompany = comp;
+            this.employeeLog.push(`${this.name} is hired to ${this.currentCompany} in Mon Mar 12 2018 07:45:55 GMT+0200 (FLE Standard Time)`);
             if (!comp._employeeList.includes(this)) {
                 comp.addNewEmployee(this);
             }
-
-            this.currentCompany = comp;
-            this.employeeLog.push(`${this.name} is hired to ${this.currentCompany} in Mon Mar 12 2018 07:45:55 GMT+0200 (FLE Standard Time)`);
         } else {
             console.log("Please try using Company instance");
         }
