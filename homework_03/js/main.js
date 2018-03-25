@@ -5,37 +5,33 @@ function Company(name, owner, maxCount) {
     this.timeInCompany;
     this._employeeList = [];
     this._logs = [];
-   
-    
+
+
     this.addNewEmployee = function(emp) {
-        let resultSalary = 0;
+        let resultSalary = Infinity;
         let resultIndex;
 
         if(!(emp instanceof Employee)) {
             console.log("Please try to add Employee instance");
             return;
         }
-        if (this._employeeList.length > this.maxCount) {
-            this._employeeList.forEach(function(item, i){
-                if (item._salary > resultSalary) {
+        if (this._employeeList.length >= this._maxCount) {
+            this._employeeList.forEach(function (item, i) {
+                if (item._salary < resultSalary) {
                     resultSalary = item._salary;
                     resultIndex = i;
                 }
             })
             this.removeEmployee(resultIndex);
         }
-        if (emp.currentCompany != this) {
+        this._employeeList.push(emp);
+        if (emp.currentCompany != this.companyName) {
             emp.hire(this);
         }
-        this._employeeList.push(emp);
         this._logs.push("addNewEmployee");
-
     }
 
     this.removeEmployee = function(index) {
-        if (emp.currentCompany == this) {
-            emp.fire(this);
-        }
         this._employeeList.splice(index, 1);
         this._logs.push("removeEmployee");
     }
@@ -47,7 +43,7 @@ function Company(name, owner, maxCount) {
         });
         this._logs.push("getAverageSalary");
 
-        return sum/_employeeList.length;
+        return sum/this._employeeList.length;
     }
 
     this.getEmployees = function() {
@@ -58,7 +54,7 @@ function Company(name, owner, maxCount) {
     this.getFormattedListOfEmployees = function() {
         this._logs.push("getFormattedListOfEmployees");
         this._employeeList.forEach(function(item) {
-            console.log(`${item.name} -  works in ${companyName} ${timeInCompany} seconds`);
+            console.log(`${item._name} -  works in ${item.companyName} ${item.timeInCompany} seconds`);
         })
     }
 
@@ -100,13 +96,13 @@ function Employee(name, age, salary, primarySkill) {
     }
 
     this.getWorkTimeInSeconds = function() {
-        
+
     }
 
     this.hire = function(comp) {
         if (comp instanceof Company) {
-            this.currentCompany = comp;
-            this.employeeLog.push(`${this.name} is hired to ${this.currentCompany} in Mon Mar 12 2018 07:45:55 GMT+0200 (FLE Standard Time)`);
+            this.currentCompany = comp.companyName;
+            this.employeeLog.push(`${this._name} is hired to ${this.currentCompany} in Mon Mar 12 2018 07:45:55 GMT+0200 (FLE Standard Time)`);
 
             if (!comp._employeeList.includes(this)) {
                 comp.addNewEmployee(this);
@@ -118,14 +114,15 @@ function Employee(name, age, salary, primarySkill) {
 
     this.fire = function(comp) {
         if (comp instanceof Company) {
-            this.employeeLog.push(`${this.name} is hired to ${this.currentCompany} in Mon Mar 12 2018 07:45:55 GMT+0200 (FLE Standard Time)`);
+            this.employeeLog.push(`${this._name} is hired to ${this.currentCompany} in Mon Mar 12 2018 07:45:55 GMT+0200 (FLE Standard Time)`);
+            this.currentCompany = "self-employed";
             if (comp._employeeList.includes(this)) {
                 comp.removeEmployee(this);
             }
         } else {
             console.log("Please try using Company instance");
         }
-        
+
     }
 
     this.getHistory = function() {
@@ -148,5 +145,4 @@ function Employee(name, age, salary, primarySkill) {
 // epam.addNewEmployee(ivan);
 // epam.addNewEmployee(orest);
 // epam.addNewEmployee(anton);
-
 // epam.getEmployees();
