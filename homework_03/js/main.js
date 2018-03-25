@@ -41,7 +41,7 @@ function Company(obj) {
         this._logs.push(`${this._employeeList[index]._name} ends working at ${this._name} in ${dateEnd}`);
     }
 
-    this.getAverageSalary = function() {
+    this.getAvarageSalary = function() {
         let sum = 0;
 
         this._employeeList.forEach(function(item) {
@@ -65,7 +65,7 @@ function Company(obj) {
         return result;
     }
 
-    this.getAverageAge = function() {
+    this.getAvarageAge = function() {
         let averageAge = 0;
 
         this._employeeList.forEach(function(item) {
@@ -97,7 +97,7 @@ function Employee(obj) {
     }
 
     this.setSalary = function(amount) {
-        if ((isFinite(newSalary)) && (typeof newSalary === 'number')) {
+        if ((isFinite(newSalary)) && (typeof amount === 'number')) {
 
         }
         this._salary = amount;
