@@ -11,47 +11,48 @@ function Company(name, owner, maxCount) {
         let resultSalary = 0;
         let resultIndex;
 
-        if(emp instanceof Employee) {
-            if (this._employeeList.length > this.maxCount) {
-                this._employeeList.forEach(function(item, i){
-                    if (item.salary > resultSalary) {
-                        resultSalary = item.salary;
-                        resultIndex = i;
-                    }
-                })
-                this._employeeList.splice(resultIndex, 1);
-            }
-            this._employeeList.push(emp);
-            this._logs.push("addNewEmployee");
-            if (emp.currentCompany != this) {
-                emp.hire(this);
-            }
-
-        } else {
+        if(!(emp instanceof Employee)) {
             console.log("Please try to add Employee instance");
+            return;
         }
+        if (this._employeeList.length > this.maxCount) {
+            this._employeeList.forEach(function(item, i){
+                if (item._salary > resultSalary) {
+                    resultSalary = item._salary;
+                    resultIndex = i;
+                }
+            })
+            this.removeEmployee(resultIndex);
+        }
+        if (emp.currentCompany != this) {
+            emp.hire(this);
+        }
+        this._employeeList.push(emp);
+        this._logs.push("addNewEmployee");
+
     }
 
-    this.removeEmployee = function(emp) {
+    this.removeEmployee = function(index) {
         if (emp.currentCompany == this) {
-            emp.fire(this)
+            emp.fire(this);
         }
+        this._employeeList.splice(index, 1);
         this._logs.push("removeEmployee");
     }
-    this.getAvarageSalary = function() {
+    this.getAverageSalary = function() {
         let sum = 0;
 
         this._employeeList.forEach(function(item) {
-            sum += item.salary;
+            sum += item._salary;
         });
-        this._logs.push("getAvarageSalary");
+        this._logs.push("getAverageSalary");
 
         return sum/_employeeList.length;
     }
 
     this.getEmployees = function() {
         this._logs.push("getEmployees");
-        return _employeeList;
+        return this._employeeList;
     }
 
     this.getFormattedListOfEmployees = function() {
@@ -61,14 +62,14 @@ function Company(name, owner, maxCount) {
         })
     }
 
-    this.getAvarageAge = function() {
+    this.getAverageAge = function() {
         let averageAge = 0;
 
         this._employeeList.forEach(function(item) {
             averageAge += item.age;
         });
 
-        this._logs.push("getAvarageAge");
+        this._logs.push("getAverageAge");
         return averageAge/this._employeeList.length;
     }
 
@@ -106,6 +107,7 @@ function Employee(name, age, salary, primarySkill) {
         if (comp instanceof Company) {
             this.currentCompany = comp;
             this.employeeLog.push(`${this.name} is hired to ${this.currentCompany} in Mon Mar 12 2018 07:45:55 GMT+0200 (FLE Standard Time)`);
+
             if (!comp._employeeList.includes(this)) {
                 comp.addNewEmployee(this);
             }
@@ -116,10 +118,10 @@ function Employee(name, age, salary, primarySkill) {
 
     this.fire = function(comp) {
         if (comp instanceof Company) {
+            this.employeeLog.push(`${this.name} is hired to ${this.currentCompany} in Mon Mar 12 2018 07:45:55 GMT+0200 (FLE Standard Time)`);
             if (comp._employeeList.includes(this)) {
                 comp.removeEmployee(this);
             }
-            this.employeeLog.push(`${this.name} is hired to ${this.currentCompany} in Mon Mar 12 2018 07:45:55 GMT+0200 (FLE Standard Time)`);
         } else {
             console.log("Please try using Company instance");
         }
@@ -132,3 +134,19 @@ function Employee(name, age, salary, primarySkill) {
         });
     }
 }
+
+// let artem = new Employee("Artem",15, 1000, "UX");
+// let vova = new Employee("Vova", 16, 2000, "BE");
+// let vasyl = new Employee("Vasyl", 25,  1000, "FE");
+// let ivan = new Employee("Ivan", 35, 5000, "FE");
+// let orest = new Employee("Orest", 29, 300, "AT");
+// let anton = new Employee("Anton", 19, 500, "Manager");
+// let epam = new Company("Epam", "Arkadii", 5);
+// epam.addNewEmployee(artem);
+// epam.addNewEmployee(vova);
+// epam.addNewEmployee(vasyl);
+// epam.addNewEmployee(ivan);
+// epam.addNewEmployee(orest);
+// epam.addNewEmployee(anton);
+
+// epam.getEmployees();
