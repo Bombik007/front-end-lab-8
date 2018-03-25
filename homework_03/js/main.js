@@ -3,7 +3,9 @@ function Company(obj) {
     this._owner = obj.owner;
     this._maxCount = obj.maxCount;
     this._employeeList = [];
-    this._logs = [`${this.name} was created in ${this._dateOfCreation}`];
+    this._dateStartCompany = Date(Date.now());
+    this._logs = [`${this.companyName} was created in ${this._dateStartCompany}`];
+    
 
 
     this.addNewEmployee = function(emp) {
@@ -29,14 +31,14 @@ function Company(obj) {
             emp.hire(this);
         }
 
-        this._logs.push(`${emp.name} starts working at ${this.name} in ${dateStart}`);
+        this._logs.push(`${emp._name} starts working at ${this._currentCompany} in ${dateStart}`);
     }
 
     this.removeEmployee = function(index) {
         let dateEnd = Date(Date.now()); 
 
         this._employeeList.splice(index, 1);
-        this._logs.push(`${this._employeeList[index].name} ends working at ${this.name} in ${dateEnd}`);
+        this._logs.push(`${this._employeeList[index]._name} ends working at ${this._name} in ${dateEnd}`);
     }
 
     this.getAverageSalary = function() {
@@ -57,7 +59,7 @@ function Company(obj) {
         let result = "";
 
         this._employeeList.forEach(function(item){
-            result += `${item.name} -  works in ${item.getCompanyName()} ${item.getTimeInCompany()} seconds\n`;
+            result += `${item._name} -  works in ${item.getCompanyName()} ${item.getTimeInCompany()} seconds\n`;
         });
 
         return result;
@@ -75,7 +77,7 @@ function Company(obj) {
     }
 
     this.getHistory = function() {
-        return _logs;
+        return this._logs;
     }
 }
 
@@ -87,7 +89,7 @@ function Employee(obj) {
     this._age = obj.age;
     this._salary = obj.salary;
     this._currentCompany;
-    this._workTime;
+    this._workTime = 0;
     this.employeeLog = [];
 
     this.getSalary = function() {
@@ -95,17 +97,28 @@ function Employee(obj) {
     }
 
     this.setSalary = function(amount) {
+        if ((isFinite(newSalary)) && (typeof newSalary === 'number')) {
+
+        }
         this._salary = amount;
     }
 
     this.getWorkTimeInSeconds = function() {
+        let result = 0;
 
+        if (this._currentCompany) {
+            result += (Date(Date.now()) - this._workTime);
+        }
+
+        return result/1000;
     }
 
     this.hire = function(comp) {
+        let dateStart = new Date(Date.now());
+
         if (comp instanceof Company) {
             this.currentCompany = comp.companyName;
-            this.employeeLog.push(`${this._name} is hired to ${this.currentCompany} in Mon Mar 12 2018 07:45:55 GMT+0200 (FLE Standard Time)`);
+            this.employeeLog.push(`${this._name} is hired to ${this._currentCompany} in ${dateStart}`);
 
             if (!comp._employeeList.includes(this)) {
                 comp.addNewEmployee(this);
@@ -116,8 +129,10 @@ function Employee(obj) {
     }
 
     this.fire = function(comp) {
+        let dateEnd = new Date(Date.now());
+
         if (comp instanceof Company) {
-            this.employeeLog.push(`${this._name} is hired to ${this.currentCompany} in Mon Mar 12 2018 07:45:55 GMT+0200 (FLE Standard Time)`);
+            this.employeeLog.push(`${this._name} is hired to ${this._currentCompany} in ${dateEnd}`);
             this.currentCompany = "self-employed";
             if (comp._employeeList.includes(this)) {
                 comp.removeEmployee(this);
@@ -135,17 +150,37 @@ function Employee(obj) {
     }
 }
 
-// let artem = new Employee("Artem",15, 1000, "UX");
-// let vova = new Employee("Vova", 16, 2000, "BE");
-// let vasyl = new Employee("Vasyl", 25,  1000, "FE");
-// let ivan = new Employee("Ivan", 35, 5000, "FE");
-// let orest = new Employee("Orest", 29, 300, "AT");
-// let anton = new Employee("Anton", 19, 500, "Manager");
-// let epam = new Company("Epam", "Arkadii", 5);
-// epam.addNewEmployee(artem);
-// epam.addNewEmployee(vova);
-// epam.addNewEmployee(vasyl);
-// epam.addNewEmployee(ivan);
-// epam.addNewEmployee(orest);
-// epam.addNewEmployee(anton);
-// epam.getEmployees();
+let artem = new Employee({name: "Artem", age: 15, salary: 1000, primarySkill: "UX"});
+let vova = new Employee({name: "Vova", age: 16, salary: 2000, primarySkill: "BE"});
+let vasyl = new Employee({name: "Vasyl", age: 25, salary: 1000, primarySkill: "FE"});
+let ivan = new Employee({name: "Ivan", age: 35, salary: 5000, primarySkill: "FE"});
+let orest = new Employee({name: "Orest", age: 29, salary: 300, primarySkill: "AT"});
+let anton = new Employee({name: "Anton", age: 19, salary: 500, primarySkill: "Manager"});
+
+let epam = new Company({name: "Epam", owner: "Arkadii", maxCompanySize: 5});
+epam.addNewEmployee(artem);
+epam.addNewEmployee(vova);
+epam.addNewEmployee(vasyl);
+epam.addNewEmployee(ivan);
+epam.addNewEmployee(orest);
+epam.addNewEmployee(anton);
+
+console.log(epam.getHistory());
+
+epam.removeEmployee(2);
+
+console.log(vasyl.getHistory());
+
+console.log(epam.getAvarageSalary()); // -> 2125
+console.log(epam.getAvarageAge());  // -> 21.25
+
+epam.addNewEmployee(5,6,9,5); // -> Please try to add Employee instance
+
+setTimeout(() => {
+   epam.removeEmployee(1);
+   console.log(artem.getWorkTimeInSeconds()); // -> 5.5744444444444445
+}, 5000);
+
+vova.setSalary(900);
+vova.setSalary(2200);
+console.log(vova.getHistory());
