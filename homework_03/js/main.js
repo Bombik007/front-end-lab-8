@@ -5,71 +5,90 @@ function Company(name, owner, maxCount) {
     this.timeInCompany;
     this._employeeList = [];
     this._logs = [];
-
+   
     
     this.addNewEmployee = function(emp) {
-        _employeeList.push(emp);
-        _logs.push("addNewEmployee");
+        let resultSalary = 0;
+        let resultIndex;
+
+        if(emp instanceof Employee) {
+            if (this._employeeList.length > this.maxCount) {
+                this._employeeList.forEach(function(item, i){
+                    if (item.salary > resultSalary) {
+                        resultSalary = item.salary;
+                        resultIndex = i;
+                    }
+                })
+                this._employeeList.splice(resultIndex, 1);
+            }
+            if (emp.currentCompany != this) {
+                emp.hire(this);
+            }
+            this._employeeList.push(emp);
+            this._logs.push("addNewEmployee");
+
+        } else {
+            console.log("Please try to add Employee instance");
+        }
     }
 
-    this.removeEmployee = function() {
-        let resultSalary = 0;
-        let index;
-
-        for (let i = 0; i < _employeeList.length; i++) {
-            if (_employeeList[i].salary > resultSalary) {
-                resultSalary = _employeeList[i].salary;
-                index = i;
-            }
+    this.removeEmployee = function(emp) {
+        if (emp.currentCompany == this) {
+            emp.fire(this)
         }
-        _employeeList.splice(i, 1);
-        _logs.push("removeEmployee");
+        this._logs.push("removeEmployee");
     }
     this.getAvarageSalary = function() {
         let sum = 0;
 
-        _employeeList.forEach(function(item) {
-            sum += _employeeList[item].salary;
+        this._employeeList.forEach(function(item) {
+            sum += item.salary;
         });
+        this._logs.push("getAvarageSalary");
 
-        _logs.push("getAvarageSalary");
         return sum/_employeeList.length;
     }
 
     this.getEmployees = function() {
-        _logs.push("getEmployees");
+        this._logs.push("getEmployees");
         return _employeeList;
     }
 
     this.getFormattedListOfEmployees = function() {
-        _logs.push("getFormattedListOfEmployees");
-        console.log(`${name} -  works in ${companyName} ${timeInCompany} seconds`);
+        this._logs.push("getFormattedListOfEmployees");
+        this._employeeList.forEach(function(item) {
+            console.log(`${item.name} -  works in ${companyName} ${timeInCompany} seconds`);
+        })
     }
 
     this.getAvarageAge = function() {
         let averageAge = 0;
 
-        _employeeList.forEach(function(item) {
-            averageAge += _employeeList[item].salary;
+        this._employeeList.forEach(function(item) {
+            averageAge += item.age;
         });
 
-        _logs.push("getAvarageAge");
-        return averageAge/_employeeList.length;
+        this._logs.push("getAvarageAge");
+        return averageAge/this._employeeList.length;
     }
 
     this.getHistory = function() {
-        _logs.push("getHistory");
-        return _logs;
+        this.employeeLog.forEach(function(item) {
+            console.log(item);
+        });
     }
 }
 
-function Employee(name, primarySkill, age, salary) {
+
+
+function Employee(name, age, salary, primarySkill) {
     this._name = name;
     this._primarySkill = primarySkill;
     this._age = age;
     this._salary = salary;
+    this._currentCompany;
     this._workTime;
-    this.employeeLog;
+    this.employeeLog = [];
 
     this.getSalary = function() {
         return this._salary;
@@ -80,18 +99,37 @@ function Employee(name, primarySkill, age, salary) {
     }
 
     this.getWorkTimeInSeconds = function() {
-
-    }
-
-    this.hire = function(company) {
         
     }
 
-    this.fire = function() {
+    this.hire = function(comp) {
+        if (comp instanceof Company) {
+            if (!comp._employeeList.includes(this)) {
+                comp.addNewEmployee(this);
+            }
 
+            this.currentCompany = comp;
+            this.employeeLog.push(`${this.name} is hired to ${this.currentCompany} in Mon Mar 12 2018 07:45:55 GMT+0200 (FLE Standard Time)`);
+        } else {
+            console.log("Please try using Company instance");
+        }
+    }
+
+    this.fire = function(comp) {
+        if (comp instanceof Company) {
+            if (comp._employeeList.includes(this)) {
+                comp.removeEmployee(this);
+            }
+            this.employeeLog.push(`${this.name} is hired to ${this.currentCompany} in Mon Mar 12 2018 07:45:55 GMT+0200 (FLE Standard Time)`);
+        } else {
+            console.log("Please try using Company instance");
+        }
+        
     }
 
     this.getHistory = function() {
-        return employeeLog;
+        this.employeeLog.forEach(function(item) {
+            console.log(item);
+        });
     }
 }
