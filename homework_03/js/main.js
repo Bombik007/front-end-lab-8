@@ -1,15 +1,15 @@
-function Company(name, owner, maxCount) {
-    this.companyName = name;
-    this._owner = owner;
-    this._maxCount = maxCount;
-    this.timeInCompany;
+function Company(obj) {
+    this.companyName = obj.name;
+    this._owner = obj.owner;
+    this._maxCount = obj.maxCount;
     this._employeeList = [];
-    this._logs = [];
+    this._logs = [`${this.name} was created in ${this._dateOfCreation}`];
 
 
     this.addNewEmployee = function(emp) {
         let resultSalary = Infinity;
         let resultIndex;
+        let dateStart = Date(Date.now());
 
         if(!(emp instanceof Employee)) {
             console.log("Please try to add Employee instance");
@@ -28,34 +28,39 @@ function Company(name, owner, maxCount) {
         if (emp.currentCompany != this.companyName) {
             emp.hire(this);
         }
-        this._logs.push("addNewEmployee");
+
+        this._logs.push(`${emp.name} starts working at ${this.name} in ${dateStart}`);
     }
 
     this.removeEmployee = function(index) {
+        let dateEnd = Date(Date.now()); 
+
         this._employeeList.splice(index, 1);
-        this._logs.push("removeEmployee");
+        this._logs.push(`${this._employeeList[index].name} ends working at ${this.name} in ${dateEnd}`);
     }
+
     this.getAverageSalary = function() {
         let sum = 0;
 
         this._employeeList.forEach(function(item) {
             sum += item._salary;
         });
-        this._logs.push("getAverageSalary");
 
         return sum/this._employeeList.length;
     }
 
     this.getEmployees = function() {
-        this._logs.push("getEmployees");
         return this._employeeList;
     }
 
     this.getFormattedListOfEmployees = function() {
-        this._logs.push("getFormattedListOfEmployees");
-        this._employeeList.forEach(function(item) {
-            console.log(`${item._name} -  works in ${item.companyName} ${item.timeInCompany} seconds`);
-        })
+        let result = "";
+
+        this._employeeList.forEach(function(item){
+            result += `${item.name} -  works in ${item.getCompanyName()} ${item.getTimeInCompany()} seconds\n`;
+        });
+
+        return result;
     }
 
     this.getAverageAge = function() {
@@ -66,23 +71,21 @@ function Company(name, owner, maxCount) {
         });
 
         this._logs.push("getAverageAge");
-        return averageAge/this._employeeList.length;
+        return (averageAge/this._employeeList.length);
     }
 
     this.getHistory = function() {
-        this.employeeLog.forEach(function(item) {
-            console.log(item);
-        });
+        return _logs;
     }
 }
 
 
 
-function Employee(name, age, salary, primarySkill) {
-    this._name = name;
-    this._primarySkill = primarySkill;
-    this._age = age;
-    this._salary = salary;
+function Employee(obj) {
+    this._name = obj.name;
+    this._primarySkill = obj.primarySkill;
+    this._age = obj.age;
+    this._salary = obj.salary;
     this._currentCompany;
     this._workTime;
     this.employeeLog = [];
