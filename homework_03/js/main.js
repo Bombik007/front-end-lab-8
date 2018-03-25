@@ -59,7 +59,7 @@ function Company(obj) {
         let result = "";
 
         this._employeeList.forEach(function(item){
-            result += `${item._name} -  works in ${item.getCompanyName()} ${item.getTimeInCompany()} seconds\n`;
+            result += `${item._name} -  works in ${this.companyName} seconds\n`;
         });
 
         return result;
