@@ -1,5 +1,3 @@
-// TODO: remove layout comments before submitting homework
-// Task 1
 function assign(res) {
     let result = res;
 
@@ -19,7 +17,7 @@ function assign(res) {
     return result;
 }
 
-// Task 2
+
 function Player(obj) {
     this.name = obj.name;
     this.attack = obj.attack;
@@ -27,47 +25,50 @@ function Player(obj) {
     this.currentHitpoints = obj.hitpoints;
 
 }
-    Player.prototype.getHitpoints = function() {
-        return this.currentHitpoints;
-    }
 
-    Player.prototype.setHitpoints = function(hp) {
-        this.currentHitpoints = hp;
-    }
+Player.prototype.getHitpoints = function() {
+    return this.currentHitpoints;
+}
 
-    Player.prototype.getTotalHitpoints = function() {
-        return this.hitpoins;
-    }
+Player.prototype.setHitpoints = function(hp) {
+    this.currentHitpoints = hp;
+}
 
-    Player.prototype.setTotalHitpoints = function(hp) {
-        this.hitpoins = hp;
-    }
+Player.prototype.getTotalHitpoints = function() {
+    return this.hitpoins;
+}
 
-    Player.prototype.getAttack = function() {
-        return this.attack;
-    }
+Player.prototype.setTotalHitpoints = function(hp) {
+    this.hitpoins = hp;
+}
 
-    Player.prototype.setAttack = function(pts) {
-        this.attack = pts;
-    }
-    
-    Player.prototype.fight = function(obj) {
-        if ((obj != this) && obj.isAlive()) {
-            obj.setHitpoints(obj.getHitpoints() - this.getAttack());
-        }
-    }
+Player.prototype.getAttack = function() {
+    return this.attack;
+}
 
-    Player.prototype.isAlive = function() {
-        return this.getHitpoints() > 0;
+Player.prototype.setAttack = function(pts) {
+    this.attack = pts;
+}
+
+Player.prototype.fight = function(obj) {
+    if ((obj != this) && obj.isAlive()) {
+        obj.setHitpoints(obj.getHitpoints() - this.getAttack());
     }
+}
+
+Player.prototype.isAlive = function() {
+    return this.getHitpoints() > 0;
+}
 
 
 function Champion(obj) {
+Player.apply(this, arguments);
     this.block = 0;
 }
 
-Champion.prototype.constructor = Champion;
 Champion.prototype = Object.create(Player.prototype);
+Champion.prototype.constructor = Champion;
+
 
 Champion.prototype.getBlock = function() {
     return this.block;
@@ -79,12 +80,12 @@ Champion.prototype.setBlock = function(pts) {
 
 Champion.prototype.heal = function() {
     if ((this.currentHitpoints + 5) <= this.hitpoins) {
-        this.setHitpoints(this.getHitpoints + 5);
+        this.setHitpoints(this.getHitpoints() + 5);
     }
 }
 
 Champion.prototype.defence = function() {
-    this.setHitpoints(this.getHitpoints + 1);
+    this.setHitpoints(this.getHitpoints() + 1);
     this.setBlock(this.getBlock() + 1);
 }
 
@@ -101,6 +102,7 @@ Player.prototype.fight = function(obj) {
 
 
 function Monster(obj) {
+    Player.apply(this, arguments);
     this.buff = 0;
 }
 
@@ -116,13 +118,13 @@ Monster.prototype.setBuff = function(pts) {
 }
 
 Monster.prototype.enrage = function() {
-    this.setBuff(this.getBuff + 2);
+    this.setBuff(this.getBuff() + 2);
 }
 
 Monster.prototype.fury = function() {
     if (this.getTotalHitpoints() > 5) {
-        this.setTotalHitpoints(this.getTotalHitpoints - 5);
-        this.setHitpoints(this.getHitpoints - 5);
+        this.setTotalHitpoints(this.getTotalHitpoints() - 5);
+        this.setHitpoints(this.getHitpoints() - 5);
         this.setAttack(this.getAttack() + 2);
     } else {
         console.log("Soryan, bratan. You're a deadman");
@@ -135,14 +137,14 @@ Monster.prototype.eatFlesh = function(obj) {
 
 Player.prototype.fight = function(obj) {
     let damage = this.getAttack();
-    if ((obj != this) && obj.isAlive()) {
+    if ((obj instanceof Champion) && obj.isAlive()) {
         if (this.getBuff > 0){
             damage *= 2;
-            this.setBuff(this.getBuff - 1);
+            this.setBuff(this.getBuff() - 1);
         }
         if (obj.getBlock() > 0) {
             damage = 0;
-            obj.setBlock(obj.getBlock - 1);
+            obj.setBlock(obj.getBlock() - 1);
         }
         obj.setHitpoints(obj.getHitpoints() - damage);
     }
