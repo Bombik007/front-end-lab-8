@@ -17,10 +17,17 @@ function assign(res) {
     })
 
     return result;
+
+    let ob = {};
 }
 
 // Task 2
 function Player() {
+    this.name = obj.name;
+    this.attack = obj.attack;
+    this.hitpoints = obj.hitpoints;
+    this.currentHitpoints = obj.hitpoints;
+
     this.getHitpoints = function() {
         return this.currentHitpoints;
     }
@@ -47,85 +54,97 @@ function Player() {
     
     this.fight = function(obj) {
         if ((obj != this) && obj.isAlive()) {
-            obj.currentHitpoints = obj.currentHitpoints - this.attack;
+            obj.setHitpoints(obj.getHitpoints() - this.getAttack());
         }
     }
 
     this.isAlive = function() {
-        return (currentHitpoints > 0) ? true : false;
+        return this.getHitpoints() > 0;
     }
 }
 
 function Champion(obj) {
-    this.name = obj.name;
-    this.attack = obj.attack;
-    this.hitpoints = obj.hitpoints;
-    this.currentHitpoints = obj.hitpoints;
     this.block = 0;
+}
 
-    this.heal = function() {
-        if ((this.currentHitpoints + 5) <= this.hitpoins) {
-            this.currentHitpoints += 5;
-        }
-    }
+Champion.prototype.constructor = Champion;
+Champion.prototype = Object.create(Player.prototype);
 
-    this.defence = function() {
-        this.hitpoins += 1;
-        this.block += 1;
-    }
+Champion.prototype.getBlock = function() {
+    return this.block;
+}
 
-    Player.prototype.fight = function(obj) {
-        if (obj != this && obj.isAlive()) {
-            obj.currentHitpoints = obj.currentHitpoints - this.attack;
-        }
-        if (!obj.isAlive()) {
-            this.attack += 1;
-        }
+Champion.prototype.setBlock = function(pts) {
+    this.block = pts;
+}
+
+Champion.prototype.heal = function() {
+    if ((this.currentHitpoints + 5) <= this.hitpoins) {
+        this.setHitpoints(this.getHitpoints + 5);
     }
 }
 
-Champion.prototype = Object.create(Player.prototype);
+Champion.prototype.defence = function() {
+    this.setHitpoints(this.getHitpoints + 1);
+    this.setBlock(this.getBlock() + 1);
+}
+
+Player.prototype.fight = function(obj) {
+    if (obj != this && obj.isAlive()) {
+        obj.setHitpoints(obj.getHitpoints() - this.getAttack());
+    }
+    if (!obj.isAlive()) {
+        this.setAttack(this.getAttack() + 1);
+    }
+}
+
+
+
 
 function Monster(obj) {
-    this.name = obj.name;
-    this.attack = obj.attack;
-    this.hitpoints = obj.hitpoints;
-    this.currentHitpoints = obj.hitpoints;
     this.buff = 0;
-    
-    
-    this.enrage = function() {
-        this.buff += 2;
-    }
-
-    this.fury = function() {
-        if (this.hitpoins > 5) {
-            this.hitpoins -= 5;
-            this.currentHitpoints -=5;
-            this.attack += 2;
-        } else {
-            console.log("Soryan, bratan. You're a deadman");
-        }
-    }
-
-    this.eatFlesh = function(obj) {
-        this.currentHitpoints += 0;
-    }
-
-    Player.prototype.fight = function(obj) {
-        let damage = this.attack;
-        if ((obj != this) && obj.isAlive()) {
-            if (this.buff > 0){
-                damage *= 2;
-                this.buff -= 1;
-            }
-            if (obj.block > 0) {
-                damage = 0;
-                obj.block -= 1;
-            }
-            obj.currentHitpoints = obj.currentHitpoints - damage;
-        }
-    }
 }
 
 Monster.prototype = Object.create(Player.prototype);
+Monster.prototype.constructor = Monster;
+
+Monster.prototype.getBuff = function() {
+    return this.buff;
+}
+
+Monster.prototype.setBuff = function(pts) {
+    this.buff = pts;
+}
+
+Monster.prototype.enrage = function() {
+    this.buff += 2;
+}
+
+Monster.prototype.fury = function() {
+    if (this.getTotalHitpoints() > 5) {
+        this.setTotalHitpoints(this.getTotalHitpoints - 5);
+        this.setHitpoints(this.getHitpoints - 5);
+        this.setAttack(this.getAttack() + 2);
+    } else {
+        console.log("Soryan, bratan. You're a deadman");
+    }
+}
+
+Monster.prototype.eatFlesh = function(obj) {
+    this.setHitpoints(this.getHitpoints + 0);
+}
+
+Player.prototype.fight = function(obj) {
+    let damage = this.getAttack();
+    if ((obj != this) && obj.isAlive()) {
+        if (this.buff > 0){
+            damage *= 2;
+            this.setBuff(this.getBuff - 1);
+        }
+        if (obj.getBlock() > 0) {
+            damage = 0;
+            obj.setBlock(obj.getBlock -1);
+        }
+        obj.setHitpoints(obj.getHitpoints() - damage);
+    }
+}
