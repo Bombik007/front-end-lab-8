@@ -130,7 +130,7 @@ Monster.prototype.fury = function() {
 }
 
 Monster.prototype.eatFlesh = function(obj) {
-    this.setHitpoints(this.getHitpoints + 0);
+    this.setHitpoints(this.getHitpoints() + 0);
 }
 
 Player.prototype.fight = function(obj) {
