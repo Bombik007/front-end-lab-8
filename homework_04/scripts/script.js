@@ -20,7 +20,7 @@ function assign(res) {
 }
 
 // Task 2
-function Player() {
+function Player(obj) {
     this.name = obj.name;
     this.attack = obj.attack;
     this.hitpoints = obj.hitpoints;
