@@ -17,8 +17,6 @@ function assign(res) {
     })
 
     return result;
-
-    let ob = {};
 }
 
 // Task 2
