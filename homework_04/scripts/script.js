@@ -62,7 +62,7 @@ Player.prototype.isAlive = function() {
 
 
 function Champion(obj) {
-Player.apply(this, arguments);
+    Player.apply(this, arguments);
     this.block = 0;
 }
 
@@ -150,12 +150,12 @@ Player.prototype.fight = function(obj) {
     }
 }
 
-// var hunter = new Champion({name: "Rexxar", attack: 10, hitpoints: 60});
-// var beast = new Monster({name: "King Krush", attack: 8, hitpoints: 80});
-// hunter.fight(beast);
-// beast.getHitpoints();
-// beast.enrage();
-// hunter.fight(beast);
-// beast.getHitpoints(); 
-// beast.fight(hunter);
-// hunter.getHitpoints(); 
+var hunter = new Champion({name: "Rexxar", attack: 10, hitpoints: 60});
+var beast = new Monster({name: "King Krush", attack: 8, hitpoints: 80});
+hunter.fight(beast);
+beast.getHitpoints();
+beast.enrage();
+hunter.fight(beast);
+beast.getHitpoints(); 
+beast.fight(hunter);
+hunter.getHitpoints(); 
