@@ -135,13 +135,13 @@ Monster.prototype.eatFlesh = function(obj) {
 Player.prototype.fight = function(obj) {
     let damage = this.getAttack();
     if ((obj != this) && obj.isAlive()) {
-        if (this.buff > 0){
+        if (this.getBuff > 0){
             damage *= 2;
             this.setBuff(this.getBuff - 1);
         }
         if (obj.getBlock() > 0) {
             damage = 0;
-            obj.setBlock(obj.getBlock -1);
+            obj.setBlock(obj.getBlock - 1);
         }
         obj.setHitpoints(obj.getHitpoints() - damage);
     }
