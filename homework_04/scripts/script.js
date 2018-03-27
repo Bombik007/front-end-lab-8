@@ -26,40 +26,41 @@ function Player(obj) {
     this.hitpoints = obj.hitpoints;
     this.currentHitpoints = obj.hitpoints;
 
-    this.getHitpoints = function() {
+}
+    Player.prototype.getHitpoints = function() {
         return this.currentHitpoints;
     }
 
-    this.setHitpoints = function(hp) {
+    Player.prototype.setHitpoints = function(hp) {
         this.currentHitpoints = hp;
     }
 
-    this.getTotalHitpoints = function() {
+    Player.prototype.getTotalHitpoints = function() {
         return this.hitpoins;
     }
 
-    this.setTotalHitpoints = function(hp) {
+    Player.prototype.setTotalHitpoints = function(hp) {
         this.hitpoins = hp;
     }
 
-    this.getAttack = function() {
+    Player.prototype.getAttack = function() {
         return this.attack;
     }
 
-    this.setAttack = function(pts) {
+    Player.prototype.setAttack = function(pts) {
         this.attack = pts;
     }
     
-    this.fight = function(obj) {
+    Player.prototype.fight = function(obj) {
         if ((obj != this) && obj.isAlive()) {
             obj.setHitpoints(obj.getHitpoints() - this.getAttack());
         }
     }
 
-    this.isAlive = function() {
+    Player.prototype.isAlive = function() {
         return this.getHitpoints() > 0;
     }
-}
+
 
 function Champion(obj) {
     this.block = 0;
@@ -115,7 +116,7 @@ Monster.prototype.setBuff = function(pts) {
 }
 
 Monster.prototype.enrage = function() {
-    this.buff += 2;
+    this.setBuff(this.getBuff + 2);
 }
 
 Monster.prototype.fury = function() {
@@ -146,3 +147,13 @@ Player.prototype.fight = function(obj) {
         obj.setHitpoints(obj.getHitpoints() - damage);
     }
 }
+
+// var hunter = new Champion({name: "Rexxar", attack: 10, hitpoints: 60});
+// var beast = new Monster({name: "King Krush", attack: 8, hitpoints: 80});
+// hunter.fight(beast);
+// beast.getHitpoints();
+// beast.enrage();
+// hunter.fight(beast);
+// beast.getHitpoints(); 
+// beast.fight(hunter);
+// hunter.getHitpoints(); 
