@@ -1,0 +1,15 @@
+function *flat(arr) {
+    if (arr instanceof Array) {
+        for (var i = 0; i < arr.length; i++) {
+            yield* flat(arr[i]);
+        }
+    } else {
+        yield arr;
+    }
+}
+
+
+let A = [1, [2, [3,4], 5], 6];
+for(let f of flat(A)) {
+    console.log(f);
+}
