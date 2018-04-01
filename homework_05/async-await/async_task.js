@@ -16,10 +16,13 @@ const asyncFn = async () => {
     return result;
 };
 
-const doAsyncMagic = () => {
-
+const doAsyncMagic = async () => {
+    let result = [];
+    for (let i = 0; i < 4; i++) {
+        await asyncFn().then(item => result.push(item));
+    }
+    console.log(result);
 }
-
 
 doAsyncMagic(); 
 
@@ -30,8 +33,12 @@ async function* rangeGen() {
     }
 }
 
-const iterateRange = () => {
-
+const iterateRange = async () => {
+    let sum = 0;
+    for await (let i of rangeGen()) {
+        sum += i;
+    }
+    return sum;
 }
   
 iterateRange(); // Promise {<resolved>: 120}
