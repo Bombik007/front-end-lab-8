@@ -16,11 +16,10 @@ const asyncFn = async () => {
     return result;
 };
 
+
+
 const doAsyncMagic = async () => {
-    let result = [];
-    for (let i = 0; i < 4; i++) {
-        await asyncFn().then(item => result.push(item));
-    }
+    const result = await Promise.all([asyncFn(), asyncFn(), asyncFn(), asyncFn()]);
     console.log(result);
 }
 
