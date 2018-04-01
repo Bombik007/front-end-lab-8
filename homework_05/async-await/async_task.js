@@ -41,4 +41,4 @@ const iterateRange = async () => {
     return sum;
 }
   
-iterateRange(); // Promise {<resolved>: 120}
+iterateRange();
