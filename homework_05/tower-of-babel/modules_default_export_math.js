@@ -1,5 +1,5 @@
 const PI = 3.141592;
-const _sqrt = function(s, x, last) {
+let _sqrt = function(s, x, last) {
     return x != last ? _sqrt(s, (x + s/x) /2.0, x) : x;
 }
 
