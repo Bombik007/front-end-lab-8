@@ -1,9 +1,11 @@
-let validationServer = "https://shrouded-garden-94580.herokuapp.com/";
-let outerContainer = document.getElementById("response");
+let tableContainer = document.getElementById("response");
 let data;
-let isValidField = document.getElementById("isValid");
+let validationResult = document.getElementById("isValid");
+let mapContainer = document.getElementById("map-container");
+let validationButton = document.getElementById("val-btn");
 
-isValidField.className = "text-center"; 
+
+validationResult.className = "text-center"; 
 
 
 const createTemplate = json => {
@@ -26,7 +28,7 @@ const createTemplate = json => {
 
 const validateIP = ip => (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ip));
 
-const generateInfo = obj => {
+const generateTable = obj => {
     let table = document.createElement("table");
 
     for (let i in obj) {
@@ -45,9 +47,22 @@ const generateInfo = obj => {
     return table;
 }
 
+const generateMap = (lat, lng) => {
+    let coordinates = new google.maps.LatLng(lat, lng);
+    let opt = {
+        center: centerLatLng,
+        zoom: 6
+    };
+    let mapBody = new google.maps.Map(document.getElementById("map-container"), opt);
+    let marker = new google.maps.Marker({
+        position: coordinates,
+        map: mapBody
+    });
+}
+
 const postRequest = requestBody => {
     http.post("https://shrouded-garden-94580.herokuapp.com/", requestBody).then(response => {
-        isValidField.textContent = response;
+        validationResult.textContent = response;
    }).catch(err => {
         console.log(`Ip validation failed: ${err}`);
     })
@@ -55,24 +70,20 @@ const postRequest = requestBody => {
 
 const getRequest = ip => {
         http.get(`https://ipapi.co/${ip}/json/`).then(response => {
-        data = JSON.parse(response);
-        if (json.reserved) return;
-        outerContainer.appendChild(generateInfo(data));
+        let data = JSON.parse(response);
+        if (data.reserved) return;
+        tableContainer.appendChild(generateTable(data));
+        mapContainer.appendChild(generateMap(data.latitude, data.longitude));
+        validationButton.style.display = (validationButton.style.display == "none") ? "block" : "none";
     }).catch(err => {
         console.log(`Error found: ${err}`);
     });
 }
 
 
-const createMap = (lat, lng) => {
-    let coordinates = new google.maps.LatLng(lat, lng);
-    let opt = {
-        center: centerLatLng,
-        zoom: 6
-    };
-    let mapBody = new google.maps.Map(document.getElementById("map"), opt);
-    let marker = new google.maps.Marker({
-        position: coordinates,
-        map: mapBody
-    });
-}
+validationButton.addEventListener("click", function() {
+    let inputValue = document.getElementById("ip-adrr").value;
+    if (validateIP(inputValue)) {
+        getRequest(inputValue);
+    }
+})
