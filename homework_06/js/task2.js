@@ -3,9 +3,8 @@ let data;
 let validationResult = document.getElementById("isValid");
 let mapContainer = document.getElementById("map-container");
 let validationButton = document.getElementById("val-btn");
+let submitButton = document.getElementById("track-btn");
 
-
-validationResult.className = "text-center"; 
 
 
 const createTemplate = json => {
@@ -15,8 +14,11 @@ const createTemplate = json => {
         "Region": json.region,
         "Country": `${json.country}/${json.country_name}`,
         "Postal Code": json.postal,
-        "Coordinates": `${json.latitude}, ${json.longitude}`,
-        "Time Zone": `${json.timezone} ${json.utc_offset}`,
+        "Latitude": `${json.latitude}`, 
+        "Longitude": `${json.longitude}`,
+        "Time Zone": `${json.timezone}`,
+        "UTC offset": ` ${json.utc_offset}`,
+        "Country calling code": `${json.country_calling_code}`,
         "Currency": json.currency,
         "Languages": json.languages,
         "Asn": json.asn,
@@ -41,6 +43,7 @@ const generateTable = obj => {
             valueCell.appendChild(obj[i]);
             row.appendChild(nameCell);
             row.appendChild(valueCell);
+            table.appendChild(row);
         }
     }
 
@@ -72,9 +75,7 @@ const getRequest = ip => {
         http.get(`https://ipapi.co/${ip}/json/`).then(response => {
         let data = JSON.parse(response);
         if (data.reserved) return;
-        tableContainer.appendChild(generateTable(data));
-        mapContainer.appendChild(generateMap(data.latitude, data.longitude));
-        validationButton.style.display = (validationButton.style.display == "none") ? "block" : "none";
+        return data;
     }).catch(err => {
         console.log(`Error found: ${err}`);
     });
@@ -82,8 +83,21 @@ const getRequest = ip => {
 
 
 validationButton.addEventListener("click", function() {
-    let inputValue = document.getElementById("ip-adrr").value;
+    
     if (validateIP(inputValue)) {
-        getRequest(inputValue);
+        
     }
 })
+
+submitButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    let inputValue = document.getElementById("ip-adrr").value;
+    if (validateIP(inputValue)) {
+        let requestResult = getRequest(inputValue);
+        tableContainer.appendChild(generateTable(requestResult));
+        mapContainer.appendChild(generateMap(requestResult.latitude, requestResult.longitude));
+    } else {
+        validationResult.textContent = "Invalid IP"
+    }
+})
+
