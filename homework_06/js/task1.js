@@ -5,13 +5,15 @@ let http = {
 
             req.open("GET", url, true);
             req.onreadystatechange = () => {
-                if (req.readyState !== 4) {
-                    return;
-                }
-                if (req.status === 200) {
-                    resolve(req.responseText);
+                if (req.readyState === 4) {
+                    if (req.status !== 200) {
+                        reject(`${req.status} - error ${req.statusText}`);
+                    } else {
+                        resolve(req.response);
+                    }
                 }
             }
+            
             req.send();
         });
     },
@@ -22,11 +24,12 @@ let http = {
 
             req.open("POST", url, true);
             req.onreadystatechange = () => {
-                if (req.readyState !== 4) {
-                    return;
-                }
-                if (req.status === 200) {
-                    resolve(req.responseText);
+                if (req.readyState === 4) {
+                    if (req.status !== 200) {
+                        reject(`${req.status} - error ${req.statusText}`);
+                    } else {
+                        resolve(req.response);
+                    }
                 }
             }
             req.send(reqBody);
