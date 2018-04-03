@@ -1,14 +1,15 @@
-let tableContainer = document.getElementById("response");
-let data;
-let validationResult = document.getElementById("isValid");
-let mapContainer = document.getElementById("map-container");
-let validationButton = document.getElementById("val-btn");
-let submitButton = document.getElementById("track-btn");
+let tableContainer = document.getElementById("response"),
+    validationResult = document.getElementById("isValid"),
+    mapContainer = document.getElementById("map-container"),
+    validationButton = document.getElementById("val-btn"),
+    submitButton = document.getElementById("track-btn"),
+    responseBody,
+    parsedData;
 
 
 
 const createTemplate = json => {
-    let build = {
+    const build = {
         "IP Address": json.ip,
         "City": json.city,
         "Region": json.region,
@@ -73,28 +74,28 @@ const postRequest = requestBody => {
 
 const getRequest = ip => {
         http.get(`https://ipapi.co/${ip}/json/`).then(response => {
-        let data = JSON.parse(response);
-        if (data.reserved) return;
-        return data;
+        responseBody = response;
+        parsedData = JSON.parse(response);
+        if (parsedData.reserved) return;
+        return parsedData;
     }).catch(err => {
         console.log(`Error found: ${err}`);
     });
 }
 
 
-validationButton.addEventListener("click", function() {
-    
-    if (validateIP(inputValue)) {
-        
+validationButton.addEventListener("click", () => {
+    if (responseBody) {
+        postRequest(responseBody);
     }
 })
 
-submitButton.addEventListener("click", (e) => {
+submitButton.addEventListener("click", e => {
     e.preventDefault();
     let inputValue = document.getElementById("ip-adrr").value;
     if (validateIP(inputValue)) {
         let requestResult = getRequest(inputValue);
-        tableContainer.appendChild(generateTable(requestResult));
+        tableContainer.appendChild(generateTable(createTemplate(parsedData)));
         mapContainer.appendChild(generateMap(requestResult.latitude, requestResult.longitude));
     } else {
         validationResult.textContent = "Invalid IP"
