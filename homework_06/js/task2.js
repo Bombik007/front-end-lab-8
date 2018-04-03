@@ -31,7 +31,15 @@ let generateInfo = obj => {
             tr.appendChild(valueCell);
         }
     }
-    outerContainer.appendChild(table);
+    return table;
+}
+
+let generateValidation = bla => {
+    let btn = document.createElement("button");
+    
+    btn.textContent = "Validate\n response"
+    btn.id = "validate-response"
+    return btn;
 }
 
 let createMap = (lat, lng) => {
@@ -46,3 +54,6 @@ let createMap = (lat, lng) => {
         map: mapBody
     });
 }
+
+outerContainer.appendChild(generateInfo());
+outerContainer.appendChild(generateValidation());

@@ -1,0 +1,8 @@
+table, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+#map-container {
+    max-width: 100%;
+}
