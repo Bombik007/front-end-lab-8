@@ -3,27 +3,23 @@ let tableContainer = document.getElementById("response"),
     mapContainer = document.getElementById("map-container"),
     validationButton = document.getElementById("val-btn"),
     submitButton = document.getElementById("track-btn"),
-    responseBody,
-    parsedData;
+    loader = document.getElementById("loader"),
+    responseBody, parsedData;
 
 
-
-const createTemplate = json => {
+const createTemplate = obj => {
     const build = {
-        "IP Address": json.ip,
-        "City": json.city,
-        "Region": json.region,
-        "Country": `${json.country}/${json.country_name}`,
-        "Postal Code": json.postal,
-        "Latitude": `${json.latitude}`, 
-        "Longitude": `${json.longitude}`,
-        "Time Zone": `${json.timezone}`,
-        "UTC offset": ` ${json.utc_offset}`,
-        "Country calling code": `${json.country_calling_code}`,
-        "Currency": json.currency,
-        "Languages": json.languages,
-        "Asn": json.asn,
-        "Org": json.org
+        "City": obj.city,
+        "Region": obj.region,
+        "Country": `${obj.country}/${obj.country_name}`,
+        "Postal Code": obj.postal,
+        "Latitude": `${obj.latitude}`, 
+        "Longitude": `${obj.longitude}`,
+        "Time Zone": `${obj.timezone}`,
+        "UTC offset": ` ${obj.utc_offset}`,
+        "Country calling code": `${obj.country_calling_code}`,
+        "Currency": obj.currency,
+        "Languages": obj.languages
     };
 
     return build;
@@ -39,34 +35,22 @@ const generateTable = obj => {
             let row = document.createElement("tr"),
                 nameCell = document.createElement("td"),
                 valueCell = document.createElement("td");
-            
-            nameCell.appendChild(i);
-            valueCell.appendChild(obj[i]);
+
+            nameCell.textContent = i;
+            valueCell.textContent = obj[i];
             row.appendChild(nameCell);
             row.appendChild(valueCell);
             table.appendChild(row);
         }
     }
 
-    return table;
-}
-
-const generateMap = (lat, lng) => {
-    let coordinates = new google.maps.LatLng(lat, lng);
-    let opt = {
-        center: centerLatLng,
-        zoom: 6
-    };
-    let mapBody = new google.maps.Map(document.getElementById("map-container"), opt);
-    let marker = new google.maps.Marker({
-        position: coordinates,
-        map: mapBody
-    });
+    tableContainer.appendChild(table);
 }
 
 const postRequest = requestBody => {
     http.post("https://shrouded-garden-94580.herokuapp.com/", requestBody).then(response => {
         validationResult.textContent = response;
+        loader.style.display = "none";
    }).catch(err => {
         console.log(`Ip validation failed: ${err}`);
     })
@@ -76,22 +60,24 @@ const getRequest = ip => {
         http.get(`https://ipapi.co/${ip}/json/`).then(response => {
         responseBody = response;
         parsedData = JSON.parse(response);
+        generateTable(createTemplate(parsedData));
+        loader.style.display = "none";
+        validationButton.style.display = "block";
         if (parsedData.reserved) return;
-        return parsedData;
     }).catch(err => {
         console.log(`Error found: ${err}`);
     });
 }
 
-
 validationButton.addEventListener("click", () => {
+    loader.style.display = "block";
     if (responseBody) {
         postRequest(responseBody);
     }
 })
 
-submitButton.addEventListener("click", e => {
-    e.preventDefault();
+submitButton.addEventListener("click", () => {
+    loader.style.display = "block";
     let inputValue = document.getElementById("ip-adrr").value;
     if (validateIP(inputValue)) {
         let requestResult = getRequest(inputValue);
@@ -101,4 +87,3 @@ submitButton.addEventListener("click", e => {
         validationResult.textContent = "Invalid IP"
     }
 })
-
