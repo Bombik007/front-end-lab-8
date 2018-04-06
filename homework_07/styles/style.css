@@ -1,0 +1,64 @@
+.wrapper {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    text-align: center;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-bottom: 50px;
+}
+
+.table-grid {
+    margin: 0 auto;
+    width: 480px;
+    padding: 30px;
+    border: 1px solid black;
+    background-color: rgb(213,161,74);
+}
+
+.grid-cell {
+    height: 30px;
+    width: 30px;
+    border: 1px solid black;
+    display: inline-block;
+}
+
+.row {
+    height: 30px;
+}
+
+.invisible-table {
+    margin: 0 auto;
+    width: 520px;
+    padding: 30px;
+    border: 1px solid black;
+}
+
+.stone-cell {
+    height: 30px;
+    width: 30px;
+    border: 1px solid black;
+    display: inline-block;
+    border-radius: 50%; 
+}
+
+.white-stone {
+    background-color: white;
+}
+
+.black-stone {
+    background-color: black;
+}
+
+#game {
+    width: 582px;
+    margin: 0 auto;
+}
+
