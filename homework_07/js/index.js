@@ -61,6 +61,7 @@ $( document ).ready(function() {
 
     $(".stone-cell").array.forEach(element => {
         element.on("click", () => {
+            console.log(element);
             let cellIndex = element.attr("data-cell"),
                 rowIndex = element.parent().attr("data-row"),
                 clss = (whosTurn == 1) ? "white-stone" : "black-stone";
