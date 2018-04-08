@@ -27,7 +27,7 @@ $( document ).ready(function() {
     $("#white-current").css("background-color", "grey");
 
     for (let i = 0; i < 15; i++) {
-        let $row = $("<div>").addClass("row");
+        let $row = $("<div>").addClass("row"); 
         for (let j = 0; j < 15; j++) {
             let $div = $("<div>").addClass("grid-cell");
 
