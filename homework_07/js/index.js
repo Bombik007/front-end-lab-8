@@ -21,7 +21,8 @@ $( document ).ready(function() {
         ];
     let whosTurn = 1,
         rowAttr = 0,
-        hoverCls;
+        hoverCls,
+        winner = 0;
 
     $("#white-current").css("background-color", "grey");
 
@@ -58,28 +59,28 @@ $( document ).ready(function() {
     $("#game").append(tableGrid);
     $("#game").append(invisibleTable);
 
-    const horizontalCheck = (array, index, player) => {
-        return (array[index] == player) && (array[index+1] == player) &&
-        (array[index+2] == player) && (array[index+3] == player);
-    }
+    // const horizontalCheck = (array, index, player) => {
+    //     return (array[index] == player) && (array[index+1] == player) &&
+    //     (array[index+2] == player) && (array[index+3] == player);
+    // }
 
-    const verticalCheck = (array, index, currentLevel, player) => {
-        return 
-    }
+    // const verticalCheck = (array, index, currentLevel, player) => {
+    //     return 
+    // }
 
-    const check = n => {
-        for (let i = 0; i < matrix.length; i++) {
-            for (let j = 0; j < matrix[i].length; j++) {
+    // const check = n => {
+    //     for (let i = 0; i < matrix.length; i++) {
+    //         for (let j = 0; j < matrix[i].length; j++) {
 
-            }
-        }
-    }
+    //         }
+    //     }
+    // }
 
-    const findLine = (m, c, r) => {
+    const findLine = (m, c, r, symbol) => {
         let col = c,
             row = r;
         for (let i = 0; i < 3; i++) {
-            if (m[row][col] != m[row][col+1]) {
+            if (m[row][col] != symbol) {
                 return false;
             }
             col += 1;
@@ -87,38 +88,23 @@ $( document ).ready(function() {
         return true;
     }
 
-    const checkMatrix = (m, r, c) => {
+    const checkMatrix = (m, r, c, s) => {
         let col = c,
-            row = r;
+            row = r,
+            sym = s;
 
         for (let i = 0; i < (row - 3); i++) {
-            for (let j = 0; j < (col - 3);) {
-                if (findLine(m, i, j)) {
+            for (let j = 0; j < (col - 3); j++) {
+                if (findLine(m, i, j, sym)) {
                     return true;
                 }
-                if (findLine(m, j, i)) {
+                if (findLine(m, j, i, sym)) {
                     return true;
                 }
             }
         }
         return false;
     }
-
-    // def findLine(matrix, row, col):
-    // for i in range (3):
-    //     if matrix[row][col] != matrix[row][col + 1]:
-    //         return False
-    //     col += 1
-    // return True
-
-    // def checkMatrix(matrix, rows, cols):
-    //     for i in range (rows - 3)
-    //         for j in range (cols - 3)
-    //             if findLine(matrix, i, j)
-    //                 return True
-    //             if findLine(matrix, j, i)
-    //                 return True
-    //     return False
 
     $(".stone-cell").on("click", function() {
         if ($(this).hasClass("white-stone") || $(this).hasClass("black-stone")) return;
@@ -136,8 +122,17 @@ $( document ).ready(function() {
         } else {
             $("#white-current").css("background-color", "white");
             $("#black-current").css("background-color", "grey");
+        }      
+
+        if (checkMatrix(matrix, rowIndex, cellIndex, whosTurn)) {
+            if (whosTurn == 1) {
+                $("#white-current").css("background-color", "yellow");
+                $("#black-current").css("background-color", "white");
+            } else {
+                $("#white-current").css("background-color", "white");
+                $("#black-current").css("background-color", "yellow");
+            }
         }
-        console.log(matrix);
     })
 
     $(".stone-cell").hover(function(){
