@@ -9,17 +9,17 @@ app.use(bodyParser.json());
 
 exports.post = (req, res) => {
     fs.readFile(path, (error, data) => {
-        if(error) return res.status(404).send("Cannot proceed");
+        if(error) res.status(404).send("Cannot proceed");
         let parsedData = JSON.parse(data);
 
         let check = req.body.id && req.body.name && req.body.band && req.body.instrument;
-        if (!check) return res.status(400).send("Cannot proceed");
+        if (!check) res.status(400).send("Cannot proceed");
         let ifExists = parsedData.find( item => {
             return req.body.name == item.name &&
                     req.body.band == item.band &&
                     req.body.instrument == item.instrument;
         });
-        if (ifExists) return res.status(409).send("Resource already exists");
+        if (ifExists) res.status(409).send("Resource already exists");
         const rockstar = {
             id: parsedData.length + 1,
             name: req.body.name,
@@ -33,7 +33,7 @@ exports.post = (req, res) => {
 
 exports.getById = (req, res) => {
     fs.readFile(path, (error, data) => {
-        if (error) return res.status(404).send("Musician has been not found");
+        if (error) res.status(404).send("Musician has been not found");
         let parsedData = JSON.parse(data);
         let rockstar = parsedData.find(item => item.id === parseInt(req.params.id));
         return (rockstar) ? res.status(200).send(rockstar) : res.status(404).send("Musician has been not found");
@@ -42,7 +42,7 @@ exports.getById = (req, res) => {
 
 exports.get = (req, res) => {
     fs.readFile(path, (error, data) => {
-        if (error) return res.status(404).send("Musicians has been not found");
+        if (error) res.status(404).send("Musicians has been not found");
         let parsedData = JSON.parse(data);
         res.status(200).send(parsedData)
     })
@@ -50,7 +50,7 @@ exports.get = (req, res) => {
 
 exports.put = (req, res) => {
     fs.readFile(path, (error, data) => {
-        if(error) return res.status(404).send("Musician not found");
+        if(error) res.status(404).send("Musician not found");
         let parsedData = JSON.parse(data);
         let rockstar = parsedData.find(item => item.id === parseInt(req.params.id));
         rockstar.name = (rockstar.name == req.body.name) ? rockstar.name : req.body.name;
@@ -65,7 +65,7 @@ exports.put = (req, res) => {
 
 exports.delete = (req, res) => {
     fs.readFile(path, (error, data) => {
-        if (error) return res.status(404).send("Musician not found");
+        if (error) res.status(404).send("Musician not found");
         let parsedData = JSON.parse(data);
         let target = parsedData.find(item => item.id === parseInt(req.params.id));
         if ((req.params.id > parsedData.length) || !target) return res.status(404).send("Musician not found");
