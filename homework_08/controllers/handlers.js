@@ -47,7 +47,7 @@ exports.get = (req, res) => {
         res.status(200).send(parsedData)
     })
 }
-
+ 
 exports.put = (req, res) => {
     fs.readFile(path, (error, data) => {
         if(error) res.status(404).send("Musician not found");
