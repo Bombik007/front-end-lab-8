@@ -1,62 +1,80 @@
 const express = require("express");
 const app = express();
-const database = require("../data/storage.json");
+const fs = require("fs");
+const path = require("../data/storage.json");
 const bodyParser = require("body-parser");
+
 app.use(bodyParser.json());
 
 
 exports.post = (req, res) => {
-    let check = database.find( item => {
-        return req.body.name == item.name &&
-                req.body.band == item.band &&
-                req.body.instrument == item.instrument;
+    fs.readFile(path, (error, data) => {
+        if(error) return res.status(404).send("Cannot proceed");
+        let parsedData = JSON.parse(data);
+
+        let check = req.body.id && req.body.name && req.body.band && req.body.instrument;
+        if (!check) return res.status(400).send("Cannot proceed");
+        let ifExists = parsedData.find( item => {
+            return req.body.name == item.name &&
+                    req.body.band == item.band &&
+                    req.body.instrument == item.instrument;
+        });
+        if (ifExists) return res.status(409).send("Resource already exists");
+        const rockstar = {
+            id: parsedData.length + 1,
+            name: req.body.name,
+            band: req.body.band,
+            instrument: req.body.instrument
+        };
+        parsedData.push(rockstar);
+        res.status(201).send("Element added");
     })
-
-    if (check) res.status(409).send("Resource already exists");
-
-    const rockstar = {
-        id: database.length + 1,
-        name: req.body.name,
-        band: req.body.band,
-        instrument: req.body.instrument
-    };
-
-    database.push(rockstar);
-    res.status(201).send(rockstar);
 }
 
 exports.getById = (req, res) => {
-    try {
-        let rockstar = database.find(item => item.id === parseInt(req.params.id));
-        res.status(200).send(rockstar);
-    } catch (error) {
-        res.status(404).send("Musician has been not found");
-    }
+    fs.readFile(path, (error, data) => {
+        if (error) return res.status(404).send("Musician has been not found");
+        let parsedData = JSON.parse(data);
+        let rockstar = parsedData.find(item => item.id === parseInt(req.params.id));
+        return (rockstar) ? res.status(200).send(rockstar) : res.status(404).send("Musician has been not found");
+    })
 }
 
 exports.get = (req, res) => {
-    res.status(200).send(database);
+    fs.readFile(path, (error, data) => {
+        if (error) return res.status(404).send("Musicians has been not found");
+        let parsedData = JSON.parse(data);
+        res.status(200).send(parsedData)
+    })
+    res.status(200).send(parsedData);
 }
 
 exports.put = (req, res) => {
-    try {
-        let rockstar = database.find(item => item.id === parseInt(req.params.id));
+    fs.readFile(path, (error, data) => {
+        if(error) return res.status(404).send("Musician not found");
+        let parsedData = JSON.parse(data);
+        let rockstar = parsedData.find(item => item.id === parseInt(req.params.id));
         rockstar.name = (rockstar.name == req.body.name) ? rockstar.name : req.body.name;
         rockstar.band = (rockstar.band == req.body.band) ? rockstar.band : req.body.band;
         rockstar.instrument = (rockstar.instrument == req.body.band) ? rockstar.instrument : req.body.instrument;
-        res.status(200).send(rockstar);
-    } catch (error) {
-        res.status(404).send("Musician not found");
-    }    
+        fs.writeFile(path, JSON.stringify(parsedData), err => {
+            if (error) throw error;
+            res.status(200).send("Updated");
+        })
+    })    
 }
 
 exports.delete = (req, res) => {
-    try {
-        let rockstar = database.find(item => item.id === parseInt(req.params.id));
-        let index = database.indexOf(rockstar);
-        database.splice(index, 1);
-        res.send(rockstar).send("Musician has been successfully removed");
-    } catch (error) {
-        res.status(404).send("Musician not found");
-    }
+    fs.readFile(path, (error, data) => {
+        if (error) return res.status(404).send("Musician not found");
+        let parsedData = JSON.parse(data);
+        let target = parsedData.find(item => item.id === parseInt(req.params.id));
+        if ((req.params.id > parsedData.length) || !target) return res.status(404).send("Musician not found");
+        let index = parsedData.indexOf(target);
+        parsedData.splice(index, 1);
+        fs.writeFile(path, JSON.stringify(parsedData), error => {
+            if (error) throw error;
+            res.status(200).send("Musician has been successfully removed");
+        })
+    })
 }
