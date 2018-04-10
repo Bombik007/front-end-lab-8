@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const fs = require("fs");
-const path = require("../data/storage.json");
+const path = "../data/storage.json";
 const bodyParser = require("body-parser");
 
 app.use(bodyParser.json());
@@ -46,7 +46,6 @@ exports.get = (req, res) => {
         let parsedData = JSON.parse(data);
         res.status(200).send(parsedData)
     })
-    res.status(200).send(parsedData);
 }
 
 exports.put = (req, res) => {
