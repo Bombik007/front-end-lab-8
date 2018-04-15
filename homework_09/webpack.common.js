@@ -1,6 +1,7 @@
-import ExtractTextPlugin from "extract-text-webpack-plugin";
-import CleanWebpackPlugin from "clean-webpack-plugin";
-import webpack from "webpack";
+const ExtractTextPlugin = require("extract-text-webpack-plugin"),
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
+    CleanWebpackPlugin = require("clean-webpack-plugin"),
+    webpack = require("webpack");
 
 module.exports = {
     entry: './src/app.js',
@@ -8,7 +9,7 @@ module.exports = {
         filename: "app.bundle.js",
         path: __dirname + "/bin"
     },
-    mode: "development",
+    
     module: {
         rules: [
             {
@@ -27,11 +28,11 @@ module.exports = {
     },
 
     plugins: [
+        new ExtractTextPlugin("style.css"),
         new HtmlWebpackPlugin({
 			filename: 'index.html',
 			template: './src/app.html'
 		}),
-        new ExtractTextPlugin("style.css"),
         new CleanWebpackPlugin(["bin"]),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
     ]
