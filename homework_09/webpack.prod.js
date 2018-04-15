@@ -6,7 +6,9 @@ const merge = require('webpack-merge'),
 
 module.exports = merge(common, {
 	plugins: [
-		new UglifyJSPlugin(),
+		new UglifyJSPlugin({
+            test: /\.js($|\?)/i
+        }),
         new OptimizeCssAssetsPlugin(),
         new BundleAnalyzerPlugin()
 	]

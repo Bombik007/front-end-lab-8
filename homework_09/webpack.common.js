@@ -11,20 +11,35 @@ module.exports = {
     },
     
     module: {
-        rules: [
+        loaders: [
             {
-				test: /\.js$/,
-				use: ["babel-loader"],
-				exclude:/node_modules/
-			},
+                test: /\.js?$/,
+                include: __dirname + 'src',
+                loader: 'babel-loader',
+                query: {
+                presets: ["es2015"]
+                }
+            },
             {
                 test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
-                    use: ["css-loader", "sass-loader"],
-                    fallback: "style-loader"
+                loader: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: [{
+                    loader: "css-loader", options: {
+                        sourceMap: true
+                    }
+                    }, {
+                    loader: "sass-loader", options: {
+                        sourceMap: true
+                    }
+                    }]
                 })
             }
         ]
+    },
+
+    resolve: {
+        extensions: [".js"]
     },
 
     plugins: [
