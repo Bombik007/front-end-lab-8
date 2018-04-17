@@ -53,7 +53,7 @@ function AddRequiredValidation(val) {
 function AddMaxLengthValidation(val, len) {
     let bindedSetter = val.setValue.bind(val);
     function validator(target) {
-        return target.length <= len;
+        return ((target != undefined) && (target.toString.length <= len));
     }
 
     val.valid = validator(val.value);
@@ -90,16 +90,14 @@ function AddNumberValidation(val) {
     }
 }
 
-
 AddRequiredValidation(numberInput);
 AddMaxLengthValidation(numberInput, 20);
 AddNumberValidation(numberInput);
-// The desired behaviour would be
-// console.log(numberInput.valid) ---> false, because of required validator
-// numberInput.setValue("1");
-// console.log(numberInput.valid) ---> false, because of number validator
-// numberInput.setValue(1);
-// console.log(numberInput.valid) ---> true, all validators pass
-// numberInput.setValue(1111111111111111111111111111);
-// console.log(numberInput.valid) ---> false, because of max length validator
 
+console.log(numberInput.valid);
+numberInput.setValue("1");
+console.log(numberInput.valid);
+numberInput.setValue(1);
+console.log(numberInput.valid);
+numberInput.setValue(1111111111111111111111111111);
+console.log(numberInput.valid);
