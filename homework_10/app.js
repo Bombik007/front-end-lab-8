@@ -4,7 +4,7 @@ class Input {
         this._value = "";
     }
 
-    get value() {
+    getValue() {
         return this._value;
     }
 
@@ -30,74 +30,47 @@ class TextInput extends Input {
 let numberInput = new NumberInput("Type numbers...");
 
 
-function AddRequiredValidation(val) {
-    let bindedSetter = val.setValue.bind(val);
-    function validator(target) {
-        return ((target != undefined) && (target.toString().length > 0));
+function addValidator(obj, validator, invalidMessage){
+  if (!obj.hasOwnProperty("originalSetValue")) obj.originalSetValue = obj.setValue.bind(obj);
+  if (!obj.hasOwnProperty("validators")) obj.validators = [];
+  
+  obj.validators.push([validator, invalidMessage]);
+  
+  obj.setValue = function(value){
+    this.validatorMessages = []
+    this.originalSetValue(value);
+    isValid = true;
+    for (validator of this.validators){
+      validationResult = validator[0](value);
+      if (!validationResult) this.validatorMessages.push(validator[1]);
+      //console.log("Validation for " + value + " for " + validator[1] + " result " + validationResult);
+      isValid = isValid && validationResult;
     }
-
-    val.valid = validator(val.value);
-    if (!val.valid) {
-        if (!val.hasOwnProperty("validatorMessages")) {
-            val.validatorMessages = [];
-        }
-        val.validatorMessages.push("AddRequiredValidation didnt pass");
-    }
-
-    val.setValue = function(value) {
-        bindedSetter(value);
-        this.valid = validator(this.value);
-    }
+    this.valid = isValid;
+  }
+  obj.setValue(obj.getValue());
 }
 
-function AddMaxLengthValidation(val, len) {
-    let bindedSetter = val.setValue.bind(val);
-    function validator(target) {
-        return ((target != undefined) && (target.toString().length <= len));
-    }
+let RequiredValidator = val => (val != undefined) && (val.toString().length > 0);
+let MaxLenValidator = maxLen => val => (val != undefined) && val.toString().length <= maxLen;
+let NumericValidator = val => typeof val == "number";
 
-    val.valid = validator(val.value);
-    if (!val.valid) {
-        if (!val.hasOwnProperty("validatorMessages")) {
-            val.validatorMessages = [];
-        }
-        val.validatorMessages.push("AddRequiredValidation didnt pass");
-    } 
+let AddRequiredValidation = (obj) => addValidator(obj, RequiredValidator, "RequiredValidation didn't pass");
+let AddMaxLengthValidation = (obj, MaxLen) => addValidator(obj, MaxLenValidator(MaxLen), "MaxLength didn't pass");
+let AddNumberValidation = (obj) => addValidator(obj, NumericValidator, "Numeric validator didn't pass");
 
-    val.setValue = function(value) {
-        bindedSetter(value);
-        this.valid = validator(this.value);
-    }
-}
 
-function AddNumberValidation(val) {
-    let bindedSetter = val.setValue.bind(val);
-    function validator(target) {
-        return typeof target == "number";
-    }
-
-    val.valid = validator(val.value);
-    if (!val.valid) {
-        if (!val.hasOwnProperty("validatorMessages")) {
-            val.validatorMessages = [];
-        }
-        val.validatorMessages.push("AddMaxLengthValidation didnt pass");
-    }
-
-    val.setValue = function(value) {
-        bindedSetter(value);
-        this.valid = validator(this.value);
-    }
-}
-
+ //The desired behaviour would be
 AddRequiredValidation(numberInput);
 AddMaxLengthValidation(numberInput, 20);
 AddNumberValidation(numberInput);
-
-console.log(numberInput.valid);
+console.log(numberInput.valid)// ---> false, because of required validator
 numberInput.setValue("1");
-console.log(numberInput.valid);
+console.log(numberInput.valid)// ---> false, because of number validator
 numberInput.setValue(1);
-console.log(numberInput.valid);
+console.log(numberInput.valid) //---> true, all validators pass
 numberInput.setValue(1111111111111111111111111111);
-console.log(numberInput.valid);
+console.log(numberInput.valid)// ---> false, because of max length validator
+
+// Notice after applying some validator to an object, it gets additional "valid" property;
+
