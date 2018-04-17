@@ -29,10 +29,13 @@ class TextInput extends Input {
 
 let numberInput = new NumberInput("Type numbers...");
 
-const AddRequiredValidation = function(val) {
+// console.log('NumberInput.placeHolder', NumberInput);
+
+function AddRequiredValidation(val) {
     let bindedSetter = val.setValue.bind(val);
     function validator(target) {
-        return ((target != null) && (target.length > 0));
+        console.log(target);
+        return ((target != undefined) && (target.length > 0));
     }
 
     val.valid = validator(val.value);
@@ -49,9 +52,10 @@ const AddRequiredValidation = function(val) {
     }
 }
 
-const AddMaxLengthValidation = function(val, len) {
+function AddMaxLengthValidation(val, len) {
     let valueSetter = val.setValue.bind(val);
     function validator(target) {
+        console.log(target);
         return target.length <= len;
     }
 
@@ -69,9 +73,10 @@ const AddMaxLengthValidation = function(val, len) {
     }
 }
 
-const AddNumberValidation = function(val) {
+function AddNumberValidation(val) {
     let bindedSetter = val.setValue.bind(val);
     function validator(target) {
+        console.log(target);
         return typeof target == "number";
     }
 
