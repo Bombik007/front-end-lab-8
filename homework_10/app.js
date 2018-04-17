@@ -29,12 +29,9 @@ class TextInput extends Input {
 
 let numberInput = new NumberInput("Type numbers...");
 
-// console.log('NumberInput.placeHolder', NumberInput);
-
 function AddRequiredValidation(val) {
     let bindedSetter = val.setValue.bind(val);
     function validator(target) {
-        console.log(target);
         return ((target != undefined) && (target.length > 0));
     }
 
@@ -53,9 +50,8 @@ function AddRequiredValidation(val) {
 }
 
 function AddMaxLengthValidation(val, len) {
-    let valueSetter = val.setValue.bind(val);
+    let bindedSetter = val.setValue.bind(val);
     function validator(target) {
-        console.log(target);
         return target.length <= len;
     }
 
@@ -76,7 +72,6 @@ function AddMaxLengthValidation(val, len) {
 function AddNumberValidation(val) {
     let bindedSetter = val.setValue.bind(val);
     function validator(target) {
-        console.log(target);
         return typeof target == "number";
     }
 
@@ -103,8 +98,6 @@ function AddNumberValidation(val) {
 // numberInput.setValue(1111111111111111111111111111);
 // console.log(numberInput.valid) ---> false, because of max length validator
 
-// Notice after applying some validator to an object, it gets additional "valid" property;
-
-AddRequiredValidation(numberInput);
-AddMaxLengthValidation(numberInput, 20);
-AddNumberValidation(numberInput);
+// AddRequiredValidation(numberInput);
+// AddMaxLengthValidation(numberInput, 20);
+// AddNumberValidation(numberInput);
