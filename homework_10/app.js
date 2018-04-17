@@ -29,6 +29,7 @@ class TextInput extends Input {
 
 let numberInput = new NumberInput("Type numbers...");
 
+
 function AddRequiredValidation(val) {
     let bindedSetter = val.setValue.bind(val);
     function validator(target) {
@@ -89,6 +90,10 @@ function AddNumberValidation(val) {
     }
 }
 
+
+AddRequiredValidation(numberInput);
+AddMaxLengthValidation(numberInput, 20);
+AddNumberValidation(numberInput);
 // The desired behaviour would be
 // console.log(numberInput.valid) ---> false, because of required validator
 // numberInput.setValue("1");
@@ -98,6 +103,3 @@ function AddNumberValidation(val) {
 // numberInput.setValue(1111111111111111111111111111);
 // console.log(numberInput.valid) ---> false, because of max length validator
 
-// AddRequiredValidation(numberInput);
-// AddMaxLengthValidation(numberInput, 20);
-// AddNumberValidation(numberInput);
