@@ -33,7 +33,7 @@ let numberInput = new NumberInput("Type numbers...");
 function AddRequiredValidation(val) {
     let bindedSetter = val.setValue.bind(val);
     function validator(target) {
-        return ((target != undefined) && (target.length > 0));
+        return ((target != undefined) && (target.toString().length > 0));
     }
 
     val.valid = validator(val.value);
