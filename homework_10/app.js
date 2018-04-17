@@ -53,7 +53,7 @@ function AddRequiredValidation(val) {
 function AddMaxLengthValidation(val, len) {
     let bindedSetter = val.setValue.bind(val);
     function validator(target) {
-        return ((target != undefined) && (target.toString.length <= len));
+        return ((target != undefined) && (target.toString().length <= len));
     }
 
     val.valid = validator(val.value);
