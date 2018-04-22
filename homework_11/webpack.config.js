@@ -4,10 +4,10 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin"),
     webpack = require("webpack");
 
 module.exports = {
-    entry: "./src/app.js",
+    entry: "./src/js/output-module.js",
     output:  {
-        filename: "app.bundle.js",
-        path: __dirname + "/bin"
+        filename: "bundle.js",
+        path: __dirname + "/dist"
     },
 
     watch: true,
@@ -41,10 +41,10 @@ module.exports = {
     },
 
     plugins: [
-        new ExtractTextPlugin("style.css"),
+        new ExtractTextPlugin("styles.css"),
         new HtmlWebpackPlugin({
 			filename: "index.html",
-			template: "./src/app.html"
+			template: "./src/index.html"
 		}),
         new CleanWebpackPlugin(["bin"]),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
