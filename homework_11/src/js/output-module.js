@@ -9,6 +9,10 @@ const btnsArray = document.getElementsByTagName("button"),
     value = userInput.value
 
 const equals = () => {
+
+
+
+    
     let valueArr = value.split(" ");
     if (valueArr[1] == "+") value = Calculate.adding(Number(valueArr[0]), Number(valueArr[2]));
     if (valueArr[1] == "-") value = Calculate.diminution(Number(valueArr[0]), Number(valueArr[2]));

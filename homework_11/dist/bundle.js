@@ -84,6 +84,10 @@ const btnsArray = document.getElementsByTagName("button"),
     value = userInput.value
 
 const equals = () => {
+
+
+
+    
     let valueArr = value.split(" ");
     if (valueArr[1] == "+") value = __WEBPACK_IMPORTED_MODULE_0__calculating_module__["a" /* default */].adding(Number(valueArr[0]), Number(valueArr[2]));
     if (valueArr[1] == "-") value = __WEBPACK_IMPORTED_MODULE_0__calculating_module__["a" /* default */].diminution(Number(valueArr[0]), Number(valueArr[2]));
