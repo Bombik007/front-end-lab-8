@@ -46,7 +46,7 @@ module.exports = {
 			filename: "index.html",
 			template: "./src/index.html"
 		}),
-        new CleanWebpackPlugin(["bin"]),
+        new CleanWebpackPlugin(["dist"]),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
     ]
 };
