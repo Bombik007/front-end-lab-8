@@ -80,25 +80,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object(__WEBPACK_IMPORTED_MODULE_1__interface_module__["a" /* default */])();
 
 const btnsArray = document.getElementsByTagName("button"),
-    userInput = document.getElementById("userInput");
+    userInput = document.getElementById("userInput"),
+    value = userInput.value
 
 const equals = () => {
-    let value = userInput.value,
-        valueArr = value.split(" ");
+    let valueArr = value.split(" ");
     if (valueArr[1] == "+") value = __WEBPACK_IMPORTED_MODULE_0__calculating_module__["a" /* default */].adding(Number(valueArr[0]), Number(valueArr[2]));
     if (valueArr[1] == "-") value = __WEBPACK_IMPORTED_MODULE_0__calculating_module__["a" /* default */].diminution(Number(valueArr[0]), Number(valueArr[2]));
     if (valueArr[1] == "*") value = __WEBPACK_IMPORTED_MODULE_0__calculating_module__["a" /* default */].multiply(Number(valueArr[0]), Number(valueArr[2]));
     if (valueArr[1] == "/") value = __WEBPACK_IMPORTED_MODULE_0__calculating_module__["a" /* default */].division(Number(valueArr[0]), Number(valueArr[2]));
 }
 
-
-
-btnsArray.forEach(element => {
-    element.addEventListener("click", e => {
+for (let element of btnsArray) {
+    element.addEventListener("click", (e) => {
         if (e.target.textContent == "=") equals();
         value = `${value} ${e.target.textContent} `;
     })
-})
+}
 
 /***/ }),
 /* 1 */
@@ -121,7 +119,7 @@ const calcModule = {
 
 "use strict";
 const renderInterface = () => {
-    const main = document.createElement("div"),
+    const body = document.getElementById("app"),
         forBtns = document.createElement("div"),
         input = document.createElement("input"),
         funcSymbolsArray = ["+", "-", "x", "/", "="];
@@ -136,9 +134,8 @@ const renderInterface = () => {
         forBtns.appendChild(btn);
     })
 
-    main.appendChild(input);
-    main.appendChild(forBtns);
-    document.getElementById("app").appendChild(main);
+    body.appendChild(forBtns);
+    body.appendChild(input);
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (renderInterface);

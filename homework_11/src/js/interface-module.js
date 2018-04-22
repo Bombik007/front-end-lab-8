@@ -1,5 +1,5 @@
 const renderInterface = () => {
-    const main = document.createElement("div"),
+    const body = document.getElementById("app"),
         forBtns = document.createElement("div"),
         input = document.createElement("input"),
         funcSymbolsArray = ["+", "-", "x", "/", "="];
@@ -14,9 +14,8 @@ const renderInterface = () => {
         forBtns.appendChild(btn);
     })
 
-    main.appendChild(input);
-    main.appendChild(forBtns);
-    document.getElementById("app").appendChild(main);
+    body.appendChild(forBtns);
+    body.appendChild(input);
 }
 
 export default renderInterface;

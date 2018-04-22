@@ -27,7 +27,8 @@ module.exports = {
                 loader: ExtractTextPlugin.extract({
                     fallback: "style-loader",
                     use: [{
-                        loader: "css-loader", options: {
+                        loader: "css-loader", 
+                        options: {
                             sourceMap: true
                         }
                     }]

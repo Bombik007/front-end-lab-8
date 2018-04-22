@@ -1,0 +1,13 @@
+#app {
+    text-align: center;
+}
+
+input {
+    margin-top: 20px;
+    padding: 15px 20px;
+}
+
+button {
+    padding: 10px 15px;
+    margin: 50px 10px 0;
+}

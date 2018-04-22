@@ -5,22 +5,20 @@ import style from "../styles/styles.css";
 renderInterface();
 
 const btnsArray = document.getElementsByTagName("button"),
-    userInput = document.getElementById("userInput");
+    userInput = document.getElementById("userInput"),
+    value = userInput.value
 
 const equals = () => {
-    let value = userInput.value,
-        valueArr = value.split(" ");
+    let valueArr = value.split(" ");
     if (valueArr[1] == "+") value = Calculate.adding(Number(valueArr[0]), Number(valueArr[2]));
     if (valueArr[1] == "-") value = Calculate.diminution(Number(valueArr[0]), Number(valueArr[2]));
     if (valueArr[1] == "*") value = Calculate.multiply(Number(valueArr[0]), Number(valueArr[2]));
     if (valueArr[1] == "/") value = Calculate.division(Number(valueArr[0]), Number(valueArr[2]));
 }
 
-
-
-btnsArray.forEach(element => {
-    element.addEventListener("click", e => {
+for (let element of btnsArray) {
+    element.addEventListener("click", (e) => {
         if (e.target.textContent == "=") equals();
         value = `${value} ${e.target.textContent} `;
     })
-})
+}
