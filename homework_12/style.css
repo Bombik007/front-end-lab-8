@@ -11,9 +11,10 @@ body {
     overflow: hidden;
 }
 
-
 /**************/
+
 /* Names list */
+
 .names {
     margin: 0;
     padding: 0;
@@ -22,6 +23,7 @@ body {
     float: left;
     margin-right: 2px;
 }
+
 .names li {
     background: #00BCD4;
     margin: 0 0 1px 0;
@@ -32,7 +34,9 @@ body {
 }
 
 /***************/
+
 /* Scores list */
+
 .scores {
     width: 80px;
     margin: 0;
@@ -41,6 +45,7 @@ body {
     float: left;
     margin-right: 30px;
 }
+
 .scores li {
     margin: 0 0 1px 0;
     padding: 10px 0;
@@ -50,9 +55,11 @@ body {
     background: #727272;
     text-align: center;
 }
+
 .scores span {
     pointer-events: none;
 }
+
 .score-input {
     width: 35px;
     height: 9px;
@@ -60,7 +67,9 @@ body {
 }
 
 /***********/
+
 /* Profile */
+
 .profile {
     float: left;
     width: 200px;
@@ -68,10 +77,41 @@ body {
     padding: 0 10px;
     text-align: center;
 }
+
 .profile img {
     display: block;
     margin: 10px auto 10px;
 }
+
 .profile h3 {
     margin: 0 0 10px;
+}
+
+/***********/
+
+/* Sort Panel */
+
+.wrapper .sort-controls {
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    width: 92.5%;
+    margin-bottom: 0;
+}
+
+#name_sort {
+    list-style-type: none;
+    width: 280px;
+    padding: 20px 10px;
+    border-top: 1px solid rgb(207, 207, 207);
+    border-left: 1px solid rgb(207, 207, 207);
+    border-bottom: 1px solid rgb(207, 207, 207);
+}
+
+#score_sort {
+    list-style-type: none;
+    width: 80px;
+    text-align: center;
+    padding: 20px 0;
+    border: 1px solid rgb(207, 207, 207);
 }

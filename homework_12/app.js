@@ -74,6 +74,10 @@ const control = {
         scoresView.render();
 
         profileView.init();
+
+        sortControl.init();
+        sortControl.render();
+        sortControl.handleClicks();
     },
     getAllNames: function() {
         return model.allPersons.map(el=>el.name);
@@ -95,6 +99,15 @@ const control = {
         model.currentPerson.score = value;
         profileView.render();
         scoresView.render();
+    },
+    initSort() {
+        listView.init();
+        listView.render();
+
+        scoresView.init();
+        scoresView.render();
+
+        profileView.init();
     }
 };
 
@@ -167,5 +180,49 @@ const profileView = {
         this.$container.html(template);
     }
 };
+
+const sortControl = {
+    init: function() {
+        this.$container = $(".sort-controls");
+    },
+
+    render: function() {
+        const template = `
+            <li id="name_sort">
+                Name
+                <div class="arrows">
+                    <span class="arrow up"></span>
+                    <span class="arrow down"></span>
+                </div>
+            </li>
+            <li id="score_sort">
+                Score
+                <div class="arrows">
+                    <span class="arrow up"></span>
+                    <span class="arrow down"></span>
+                </div>
+            </li>`;
+        $(template).appendTo(this.$container);
+    },
+
+    handleClicks: function() {
+        const sortedByName = model.allPersons.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)),
+            sortedByScore = model.allPersons.sort((a, b) => (a.score > b.score) ? 1 : ((b.score > a.score) ? -1 : 0));
+        let nameState = true,
+            scoreState = true;
+
+        const eventHandlerGenerator = (selector, state, sortedArr) => {
+            selector.on("click", function() {
+                $(this).hasClass("increase") || $(this).hasClass("decrease") ? $(this).toggleClass("increase decrease") : $(this).addClass("increase");
+                (state) ? model.allPersons = sortedArr : model.allPersons = sortedArr.reverse();
+                control.initSort();
+                state = (state) ? false : true;
+            })
+        }
+
+        eventHandlerGenerator($("#name_sort"), nameState, sortedByName);
+        eventHandlerGenerator($("#score_sort"), scoreState, sortedByScore);
+    }
+}
 
 control.init();
