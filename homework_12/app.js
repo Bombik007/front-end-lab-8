@@ -206,17 +206,18 @@ const sortControl = {
     },
 
     handleClicks: function() {
-        const sortedByName = model.allPersons.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)),
-            sortedByScore = model.allPersons.sort((a, b) => (a.score > b.score) ? 1 : ((b.score > a.score) ? -1 : 0));
+        const sortedByName = model.allPersons.slice().sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)),
+            sortedByScore = model.allPersons.slice().sort((a, b) => a.score - b.score);
         let nameState = true,
             scoreState = true;
 
         const eventHandlerGenerator = (selector, state, sortedArr) => {
             selector.on("click", function() {
                 $(this).hasClass("increase") || $(this).hasClass("decrease") ? $(this).toggleClass("increase decrease") : $(this).addClass("increase");
-                (state) ? model.allPersons = sortedArr : model.allPersons = sortedArr.reverse();
+                sortedArr.reverse();
+                model.allPersons = sortedArr;
                 control.initSort();
-                state = (state) ? false : true;
+                state = !state;
             })
         }
 
