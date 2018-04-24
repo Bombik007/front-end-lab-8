@@ -191,29 +191,29 @@ const sortControl = {
             <li id="name_sort">
                 Name
                 <div class="arrows">
-                    <span class="arrow up"></span>
-                    <span class="arrow down"></span>
+                    <div class="arrow up"></div>
+                    <div class="arrow down"></div>
                 </div>
             </li>
             <li id="score_sort">
                 Score
                 <div class="arrows">
-                    <span class="arrow up"></span>
-                    <span class="arrow down"></span>
+                    <div class="arrow up"></div>
+                    <div class="arrow down"></div>
                 </div>
             </li>`;
-        $(template).appendTo(this.$container);
+        this.$container.html(template);
     },
 
     handleClicks: function() {
-        const sortedByName = model.allPersons.slice().sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)),
+        const sortedByName = model.allPersons.slice().sort((a, b) => a.name.localeCompare(b.name)),
             sortedByScore = model.allPersons.slice().sort((a, b) => a.score - b.score);
         let nameState = true,
             scoreState = true;
 
         const eventHandlerGenerator = (selector, state, sortedArr) => {
             selector.on("click", function() {
-                $(this).hasClass("increase") || $(this).hasClass("decrease") ? $(this).toggleClass("increase decrease") : $(this).addClass("increase");
+                $(this).hasClass("increase") || $(this).hasClass("decrease") ? $(this).toggleClass("increase decrease") : $(this).addClass("decrease");
                 sortedArr.reverse();
                 model.allPersons = sortedArr;
                 control.initSort();
