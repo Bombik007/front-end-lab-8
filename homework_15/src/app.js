@@ -75,6 +75,7 @@ class App extends React.Component {
               />
               <Counter 
                 origin={this.state.origin}
+                filtered={this.state.filtered}
               />
               <ColorList 
                 origin={this.state.origin}
