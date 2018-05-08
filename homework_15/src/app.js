@@ -72,7 +72,6 @@ class App extends React.Component {
                 selected={this.state.selected}
                 moveTarget={this.moveTarget}
                 findMatches={this.findMatches}
-                clearFiltered={this.clearFiltered}
               />
               <Counter 
                 origin={this.state.origin}

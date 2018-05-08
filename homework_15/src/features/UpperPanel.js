@@ -9,7 +9,6 @@ class UpperPanel extends React.Component {
                 <Filter 
                     origin={this.props.origin}
                     findMatches={this.props.findMatches}
-                    clearFiltered={this.props.clearFiltered}
                 />
                 <SelectedColors 
                     selected={this.props.selected}
