@@ -16,28 +16,41 @@
         margin-top: -2%;
         .thumbnail {
             display: inline-block;
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 50px;
             background: white;
-            border-radius: 10%;
-            position: absolute;
+            border-radius: 6%;
+            position: relative;
             &.purple {
-                border: 3px solid rgb(133, 133, 204);
-                z-index: 999;
-                right: 6%;
+                border: 2px solid rgb(133, 133, 204);
+                width: 50px;
             }
             &.lightpurple {
-                border: 3px solid rgb(167, 178, 221);
-                z-index: 888;
-                right: 8%;
+                border-top: 2px solid rgb(167, 178, 221);
+                border-left: 2px solid rgb(167, 178, 221);
+                border-bottom: 2px solid rgb(167, 178, 221);
+                width: 30px;
             }
             &.grey {
-                border: 3px solid rgb(219, 215, 244);
-                z-index: 777;
-                right: 10%;
+                border-top: 2px solid rgb(219, 215, 244);
+                border-left: 2px solid rgb(219, 215, 244);
+                border-bottom: 2px solid rgb(219, 215, 244);
+                width: 30px;
+            }
+            &:last-child {
+                width: 50px;
             }
         }
     }
+}
+
+.close_button {
+    position: absolute;
+    background-color: red;
+    border-radius: 50%;
+    color: white;
+    margin-top: -5px;
+    margin-left: -5px;
 }
 
 .flex_row {
@@ -77,6 +90,11 @@
             border: transparent;
             width: 70px;
             height: 25px;
+            font-size: 16px;
+            .add {
+                font-size: 15px;
+                padding-right: 3px;
+            }
         }
     }
 }

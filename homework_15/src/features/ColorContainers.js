@@ -9,7 +9,8 @@ class ColorContainer extends React.Component {
                 id={this.props.id}>
                     <button 
                         onClick={() => this.props.moveTarget(this.props.id, 1, 0)}>
-                     + Add 
+                        <i className="material-icons add">add</i>
+                        Add 
                     </button>
             </div>
         )

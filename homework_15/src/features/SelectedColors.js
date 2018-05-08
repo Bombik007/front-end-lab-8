@@ -11,7 +11,7 @@ class SelectedColors extends React.Component {
                         color={e.color} 
                         id={e.id} 
                         tags={e.tags}
-                        moveToOrigin={this.props.moveToOrigin}
+                        moveTarget={this.props.moveTarget}
                     />
                 )
             })

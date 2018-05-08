@@ -11,6 +11,8 @@ class Filter extends React.Component {
 
     onChange(e) {
         this.setState( {inputText: e.target.value});
+        this.props.findMatches(e.target.value);
+        if (this.state.inputText.length == 0) this.props.clearFiltered();
     }
     
     render() {
