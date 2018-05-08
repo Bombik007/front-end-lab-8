@@ -4,7 +4,7 @@ class ColorThumbnail extends React.Component {
     render() {
         return (
             <div
-                className="thumbnail flex_item" 
+                className="thumbnail" 
                 style={{background: this.props.color}}
                 id={this.props.id}>
                         <i className="material-icons close_button"
