@@ -15,11 +15,6 @@ class App extends React.Component {
     };
     this.moveTarget = this.moveTarget.bind(this);
     this.findMatches = this.findMatches.bind(this);
-    this.clearFiltered = this.clearFiltered.bind(this);
-  }
-
-  clearFiltered() {
-    this.setState({filtered: []})
   }
 
   findMatches(wordToMatch) {
@@ -28,16 +23,12 @@ class App extends React.Component {
         obj, i, j;
     for ( i = 0; i < this.state.origin.length; i++) {
         obj = this.state.origin[i];
-      for( j = 0; j < obj.tags.length; j++) { 
+      for ( j = 0; j < obj.tags.length; j++) { 
         if (obj.tags[j].match(reg)) result.push(obj);        
       }
     }
-
-	  this.setState({filtered: result});
-  }
-
-  sortArray(arr) {
-    this.setState({origin: arr.sort((a,b) => a.id - b.id)})
+    if (wordToMatch.length == 0) result = [];
+    this.setState({filtered: result});
   }
 
   moveTarget(id, origin, selected) {
@@ -51,7 +42,9 @@ class App extends React.Component {
         state2 = (!origin && selected) ? "origin" : "selected";
 
     to.push(final);
-    if (!origin && selected) this.sortArray(to);
+    if (!origin && selected) {
+      this.setState({origin: to.sort((a,b) => a.id - b.id)})
+    }
     this.setState({
       [state1] : from,
       [state2]: to

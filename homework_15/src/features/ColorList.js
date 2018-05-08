@@ -10,7 +10,7 @@ class ColorList extends React.Component {
             return (
                 <ColorContainers 
                     color={e.color} 
-                    key={e.id}
+                    key={e.id + 100}
                     id={e.id} 
                     tags={e.tags}
                     moveTarget={this.props.moveTarget}
@@ -19,7 +19,7 @@ class ColorList extends React.Component {
             });
         } else {
             if (this.props.loaded) {
-                return <h2 className="not_found">No results found</h2>
+                return <h2 className="not_found">There are no colors found</h2>
             } else {
                 return <h2 className="not_found">Loading...</h2>
             }
