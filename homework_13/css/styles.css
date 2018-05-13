@@ -1,0 +1,167 @@
+*{
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    
+}
+.blog-title {
+    text-align: center;
+    color: #a1a1a1;
+    font-size: 2vw;
+}
+.blog-sidebar{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-image{
+    background-size: cover;
+    width: 100%;
+    height: 70%;
+    position: relative;
+}
+.post-title{
+    color: white;
+    font-size: 2vw;
+    background: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 1%;
+    font-weight: 700;
+}
+.wrapper{
+    padding-top: 1%;
+    width: 80%;
+    margin: 0 auto;
+}
+.posts{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
+}
+@media (max-width: 910px) {
+    .posts {
+        justify-content: center;
+    } 
+    .post-form {
+        margin: 0 auto;
+    }
+}
+h4{
+    margin: 2% 0;
+}
+.no-results{
+    width: 60vw;
+    height: 22vw;
+    text-align: center;
+    font-size: 1vw;
+}
+.no-results-image{
+    background: url('https://web.medicbleep.com/images/noSearch.svg') no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 50%;
+    height: 50%;
+    text-align: center;
+    margin: 0 auto;
+}
+.post {
+    padding: 0.5vw;
+    background: '#E9E9E9';
+    width: 60vw;
+    height: 22vw;
+    background: #E9E9E9;
+    margin: 1% 0;
+    position: relative;
+}
+label{
+    font-size: 1vw;
+}
+.post-image-edit{
+    position: absolute;
+    top:8%;
+    left:1%;
+    width: 10vw;
+    height: 2.5vw;   
+}
+.input-font-size {
+    font-size: 1vw;
+}
+.post-title-edit{
+    position: absolute;
+    bottom: 4%;
+    left: 1%;
+    width: 98%;
+}
+.post-description-edit{
+    position: absolute;
+    left: 1.8%;
+    bottom: 11%;
+    width: 96.4%;
+    height: 18%;
+}
+.post-description{
+    font-size: 1vw;
+}
+.input-error{
+    color: red;
+    font-size: 1vw;
+    position: absolute;
+    bottom: 4%;
+    left: 2%;
+    background: #E9E9E9;
+}
+.red-border {
+    border: 0.1vw solid red;
+    border-radius: 4px;
+}
+.input-error-title{
+    bottom: 25%;
+    left: 1%;
+}
+button:disabled {
+    opacity: 0.5;
+}
+.category{
+    border: 0;
+    color: #2C8EC8;
+    margin: 0.5%;
+    font-size: 0.8vw;
+    padding: 0.3vw;
+}
+.category:active{
+    background: #2C8EC8;
+    color: #ffffff;
+}
+.post-button{
+    border: none;
+    color: #2C8EC8;
+    position: absolute;
+    bottom: 2%;
+    right: 1%;
+    font-size: 1vw;
+    padding: 0.1vw 0.5vw;
+}
+.post-form {
+    width: 75.75%;
+    background: #E9E9E9;
+    padding: 1vw;
+    display: grid;
+    grid-template-columns: 20% 75%;
+    grid-gap: 0.5vw;
+}
+.submit-button{
+    padding: 0.5vw;
+    font-size: 1vw;
+    color: #2C8EC8;
+    border: 0.09vw solid #2C8EC8;
+    background: #E9E9E9;
+    
+}
+input{
+    padding: 0.5vw;
+}

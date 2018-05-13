@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>myBlog</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
+
+<body data-ng-app='app'>
+    <div data-ng-controller="PostController" class="wrapper">
+
+        <h1 class="blog-title">MY BLOG</h1>
+        <div id="posts" class="posts">
+            <div data-ng-if="!filteredPosts.length" class="no-results">
+                <div class="no-results-image"></div>
+                <h1>No results found ...</h1>
+            </div>
+            <div id="post" data-ng-repeat="post in filteredPosts =( posts | filter: {title : query} || filterBy)" class="post">
+                <div class="post-image" data-ng-style="{'background-image':'url(assets/{{post.image}})'}">
+                    <p data-ng-if="!edit" class="post-title">{{ post.title }}</p>
+                    <p class="input-error input-error-title" data-ng-if="!post.title">Input a title</p>
+                    <input class="post-title-edit input-font-size" data-ng-class="{'red-border' : !post.title}" data-ng-model="post.title" data-ng-if="edit"
+                        type="text">
+                </div>
+                <div class="post-categories">
+                    <button data-ng-if="!edit" data-ng-show="!edit" class="category" data-ng-repeat="category in post.categories track by $index"
+                        data-ng-click="filter(category)">{{ category }}</button>
+                </div>
+                <p data-ng-if="!edit" class="post-description">{{ post.description }}</p>
+                <textarea class="post-description-edit input-font-size" data-ng-class="{'red-border' : !post.description}" data-ng-model="post.description"
+                    data-ng-if="edit"></textarea>
+                <p class="input-error" data-ng-if="!post.description">Input a description</p>
+                <button data-ng-if="!edit" class="post-button" data-ng-click="editPost()">edit</button>
+                <button data-ng-disabled="!post.title  || !post.description" data-ng-if="edit" class="post-button" data-ng-click="saveChanges()">save</button>
+            </div>
+            <div class="blog-sidebar">
+                <h4>Categories</h4>
+                <div data-ng-init="categUpdate(posts)" class="blog-sidebar-categories"></div>
+                <button class="category" data-ng-click="filter(category)">All</button>
+                <button class="category" data-ng-repeat="category in categArr track by $index" data-ng-click="filter(category)">{{ category }}</button>
+                <h4>Search by title</h4>
+                <input data-ng-change="noResults()" name="search" class="blog-sidebar-search" placeholder="blog title ..." data-ng-model="query">
+            </div>
+        </div>
+        <form data-ng-init="categUpdate(posts)" class="post-form" name="postForm" data-ng-submit="addPost(posts)">
+            <label>Title</label>
+            <input class="input-font-size" type="text" placeholder="Title ..." data-ng-model="form.title" required>
+            <label>Categories</label>
+            <input class="input-font-size" type="text" placeholder="Categories ..." data-ng-model="form.categories" required>
+            <label>Description</label>
+            <textarea class="input-font-size" cols="30" rows="8" placeholder="Description ..." data-ng-model="form.description" required></textarea>
+            <label>Photo</label>
+            <input class="input-font-size" type="text" placeholder="Photo ..." data-ng-model="form.image">
+            <button class="submit-button" type="submit">add</button>
+        </form>
+
+    </div>
+    <script src="lib/angular.min.js"></script>
+    <script src="src/app.js"></script>
+    <script src="src/data.js"></script>
+</body>
+
+</html>
