@@ -4,15 +4,15 @@
   </td>
   <td class="topic">
     <p *ngIf="!edit">{{class.topic}}</p>
-    <input *ngIf="edit" [(ngModel)]="class.topic" placeholder="Topic">
+    <input *ngIf="edit" class="{{style_class}}" [(ngModel)]="class.topic" placeholder="{{topicPlaceholder}}">
   </td>
   <td class="date">
     <p *ngIf="!edit">{{class.date}}</p>
-    <input *ngIf="edit" [(ngModel)]="class.date" placeholder="Date">
+    <input *ngIf="edit" class="{{style_class}}" [(ngModel)]="class.date" placeholder="{{datePlaceholder}}">
   </td>
   <td class="lecturer">
     <p *ngIf="!edit">{{class.lecturer}}</p>
-    <input *ngIf="edit" [(ngModel)]="class.lecturer" placeholder="Lecturer">
+    <input *ngIf="edit" class="{{style_class}}" [(ngModel)]="class.lecturer" placeholder="{{lecturerPlaceholder}}">
   </td>
   <td class="actions">
     <button *ngIf="!edit" (click)="editClass()">

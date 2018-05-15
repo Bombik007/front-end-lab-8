@@ -36,3 +36,7 @@ td {
     border: 1px solid black;
     border-collapse: collapse;
 }
+
+.warning_message::placeholder {
+    color: red;
+}
