@@ -1,0 +1,38 @@
+h3 {
+    padding-left: 50px;
+}
+
+.id {
+    padding: 0 10px;
+}
+
+.topic,
+.date,
+.lecturer {
+    width: 200px;
+}
+
+.actions {
+    widows: 100px;
+}
+
+.table-title {
+    display: flex;
+    flex-direction: row;
+}
+
+.table-title h3 {
+    margin: 0;
+}
+
+.table-title button {
+    margin-left: 50px;
+    padding: 5px 15px;
+    margin-bottom: 15px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+

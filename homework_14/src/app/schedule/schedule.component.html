@@ -1,0 +1,17 @@
+<div class="table-title">
+    <h3>Epam FE Lab #8</h3>
+    <button class="add-button" (click)="addClass()">Add</button>
+</div>
+<table class="main-table">
+    <tr>
+        <td class="id">#</td>
+        <td class="topic">Topic</td>
+        <td class="date">Date</td>
+        <td class="lecturer">Lecturer</td>
+        <td class="actions">Actions</td>
+    </tr>
+    <tr *ngFor="let class of classArr">
+        <app-class  [class]="class"></app-class>
+    </tr>
+    
+</table>
