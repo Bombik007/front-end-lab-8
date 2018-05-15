@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
 }
 
@@ -7,7 +7,6 @@
 }
 
 .topic,
-.date,
 .lecturer {
     width: 200px;
 }
@@ -16,12 +15,17 @@
     width: 145px;
 }
 
+.date {
+    width: 125px;
+}
+
 .actions button {
     margin-left: 15px;
     width: 50px;
 }
 
-th,td {
+th,
+td {
     border: 1px solid black;
     border-collapse: collapse;
 }
