@@ -4,7 +4,7 @@ import {ScheduleComponent} from '../schedule/schedule.component';
 
 import {StorageService} from '../storage.service';
 
-@Component({selector: 'app-class', templateUrl: './class.component.html', styleUrls: ['./class.component.css']})
+@Component({selector: 'app-class', templateUrl: './lesson.component.html', styleUrls: ['./lesson.component.css']})
 export class ClassComponent {
   constructor(private storageService : StorageService) {}
   @Input()class : Class;

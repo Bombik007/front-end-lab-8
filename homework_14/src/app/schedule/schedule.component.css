@@ -2,17 +2,24 @@ h3 {
     padding-left: 50px;
 }
 
-.id {
-    padding: 0 10px;
+th.id {
+    width: 30px;
 }
 
-.topic,
-.lecturer {
-    width: 200px;
+th.topic {
+    width: 198px;
 }
 
-.actions {
-    width: 150px;
+th.date {
+    width: 125px;
+}
+
+th.lecturer {
+    width: 158px;
+}
+
+th.actions {
+    width: 144px;
 }
 
 .table-title {
@@ -39,4 +46,8 @@ td {
 
 .warning_message::placeholder {
     color: red;
+}
+
+thead {
+    display: table-row;
 }

@@ -4,11 +4,13 @@
 </div>
 <table class="main-table">
     <thead>
-        <td class="id">#</td>
-        <td class="topic">Topic</td>
-        <td class="date">Date</td>
-        <td class="lecturer">Lecturer</td>
-        <td class="actions">Actions</td>
+        <tr>
+            <th class="id">#</th>
+            <th class="topic">Topic</th>
+            <th class="date">Date</th>
+            <th class="lecturer">Lecturer</th>
+            <th class="actions">Actions</th>
+        </tr>
     </thead>
     <tbody>
         <app-class [class]="class" *ngFor="let class of classArr"></app-class>
