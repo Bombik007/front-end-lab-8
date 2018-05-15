@@ -8,13 +8,13 @@ import {StorageService} from '../storage.service';
 export class ClassComponent {
   constructor(private storageService : StorageService) {}
   @Input()class : Class;
-  edit = false;
-  inputError = false;
+  public edit : boolean = false;
+  public inputError : boolean = false;
   public prev;
-  topicPlaceholder = "Topic";
-  datePlaceholder = "Date";
-  lecturerPlaceholder = "Lecturer";
-  style_class;
+  public topicPlaceholder : string = "Topic";
+  public datePlaceholder : string = "Date";
+  public lecturerPlaceholder : string = "Lecturer";
+  public style_class : string;
 
   public editClass() : void {
     this.edit = true;
