@@ -19,7 +19,7 @@
                 <div class="no-results-image"></div>
                 <h1>No results found ...</h1>
             </div>
-            <div id="post" data-ng-repeat="post in filteredPosts =( posts | filter: {title : query} || filterBy)" class="post">
+            <div id="post" data-ng-repeat="post in filteredPosts =( posts | filter: query || filterBy)" class="post">
                 <div class="post-image" data-ng-style="{'background-image':'url(assets/{{post.image}})'}">
                     <p data-ng-if="!edit" class="post-title">{{ post.title }}</p>
                     <p class="input-error input-error-title" data-ng-if="!post.title">Input a title</p>
