@@ -1,31 +1,31 @@
-<tr *ngIf="class">
-  <td class="id">
-    <p>{{class.id+1}}</p>
-  </td>
-  <td class="topic">
-    <p *ngIf="!edit">{{class.topic}}</p>
-    <input *ngIf="edit" class="{{style_class}}" [(ngModel)]="class.topic" placeholder="{{topicPlaceholder}}">
-  </td>
-  <td class="date">
-    <p *ngIf="!edit">{{class.date}}</p>
-    <input *ngIf="edit" class="{{style_class}}" [(ngModel)]="class.date" placeholder="{{datePlaceholder}}">
-  </td>
-  <td class="lecturer">
-    <p *ngIf="!edit">{{class.lecturer}}</p>
-    <input *ngIf="edit" class="{{style_class}}" [(ngModel)]="class.lecturer" placeholder="{{lecturerPlaceholder}}">
-  </td>
-  <td class="actions">
-    <button *ngIf="!edit" (click)="editClass()">
-      <i class="material-icons">edit</i>
-    </button>
-    <button *ngIf="!edit" (click)="deleteClass()">
-      <i class="material-icons">delete</i>
-    </button>
-    <button *ngIf="edit" (click)="saveClass()">
-      <i class="material-icons">save</i>
-    </button>
-    <button *ngIf="edit" (click)="discardChanges()">
-      <i class="material-icons">cancel</i>
-    </button>
-  </td>
-</tr>
+<!-- <tr *ngIf="class"> -->
+<td class="id">
+  <p>{{class.id+1}}</p>
+</td>
+<td class="topic">
+  <p *ngIf="!edit">{{class.topic}}</p>
+  <input *ngIf="edit" class="{{style_class}}" [(ngModel)]="class.topic" placeholder="{{topicPlaceholder}}">
+</td>
+<td class="date">
+  <p *ngIf="!edit">{{class.date}}</p>
+  <input *ngIf="edit" class="{{style_class}}" [(ngModel)]="class.date" placeholder="{{datePlaceholder}}">
+</td>
+<td class="lecturer">
+  <p *ngIf="!edit">{{class.lecturer}}</p>
+  <input *ngIf="edit" class="{{style_class}}" [(ngModel)]="class.lecturer" placeholder="{{lecturerPlaceholder}}">
+</td>
+<td class="actions">
+  <button *ngIf="!edit" (click)="editClass()">
+    <i class="material-icons">edit</i>
+  </button>
+  <button *ngIf="!edit" (click)="deleteClass()">
+    <i class="material-icons">delete</i>
+  </button>
+  <button *ngIf="edit" (click)="saveClass()">
+    <i class="material-icons">save</i>
+  </button>
+  <button *ngIf="edit" (click)="discardChanges()">
+    <i class="material-icons">cancel</i>
+  </button>
+</td>
+<!-- </tr> -->

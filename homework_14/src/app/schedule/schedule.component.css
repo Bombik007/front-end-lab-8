@@ -2,7 +2,7 @@ h3 {
     padding-left: 50px;
 }
 
-th.id {
+/* th.id {
     width: 30px;
 }
 
@@ -20,7 +20,7 @@ th.lecturer {
 
 th.actions {
     width: 144px;
-}
+} */
 
 .table-title {
     display: flex;
@@ -42,6 +42,10 @@ th,
 td {
     border: 1px solid black;
     border-collapse: collapse;
+}
+
+.arr {
+    display: table-row;
 }
 
 .warning_message::placeholder {
