@@ -1,4 +1,4 @@
-<tr *ngIf="class" >
+<tr *ngIf="class">
   <td class="id">
     <p>{{class.id+1}}</p>
   </td>
@@ -15,9 +15,17 @@
     <input *ngIf="edit" [(ngModel)]="class.lecturer" placeholder="Lecturer">
   </td>
   <td class="actions">
-    <button *ngIf="!edit" (click)="editClass()">edit</button>
-    <button *ngIf="!edit" (click)="deleteClass()">delete</button>
-    <button *ngIf="edit" (click)="saveClass()">save</button>
-    <button *ngIf="edit" (click)="discardChanges()">cancel</button>
+    <button *ngIf="!edit" (click)="editClass()">
+      <i class="material-icons">edit</i>
+    </button>
+    <button *ngIf="!edit" (click)="deleteClass()">
+      <i class="material-icons">delete</i>
+    </button>
+    <button *ngIf="edit" (click)="saveClass()">
+      <i class="material-icons">save</i>
+    </button>
+    <button *ngIf="edit" (click)="discardChanges()">
+      <i class="material-icons">cancel</i>
+    </button>
   </td>
 </tr>

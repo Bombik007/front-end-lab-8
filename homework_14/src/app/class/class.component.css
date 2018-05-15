@@ -3,19 +3,32 @@
 }
 
 .id {
-    padding: 0 10px;
+    width: 30px;
+    text-align: center;
 }
 
 .topic,
-.lecturer {
+.topic input {
     width: 200px;
+    margin: 0;
+    padding: 0;
+}
+
+.lecturer,
+.lecturer input {
+    width: 160px;
+    margin: 0;
+    padding: 0;
 }
 
 .actions {
     width: 145px;
+    margin: 0;
+    padding: 0;
 }
 
-.date {
+.date,
+.date input {
     width: 125px;
 }
 
@@ -32,4 +45,9 @@ td {
 
 input {
     width: 196px;
+}
+
+*:focus {
+    outline: 0;
+    outline-offset: 0;
 }
